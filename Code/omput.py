@@ -6,7 +6,7 @@ Element = ET.Element
 SubElement = ET.SubElement
 
 ################################################################
-#
+# 
 # OpenMath integer (OMI)
 #
 def OMInt( x ):

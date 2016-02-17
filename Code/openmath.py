@@ -14,6 +14,7 @@ from omput import *
 ################################################################
 
 def ParseOMfile(fname):
+    "Test docstring"
     tree = ET.parse(fname)
     root = tree.getroot()
     omobj = ParseOMroot(root)

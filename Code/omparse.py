@@ -10,6 +10,7 @@
 
 # OpenMath integer
 def ParseOMI(node):
+    "test docstring"
     return int(node.text)
     
 
