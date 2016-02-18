@@ -10,15 +10,10 @@ Contents:
 
 .. toctree::
    :maxdepth: 2
-	      
+
    build.rst
    code.rst
    
-.. automodule:: openmath
-.. automodule:: omparse
-.. automodule:: omput   
-
-
 
 
 Indices and tables
