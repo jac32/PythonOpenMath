@@ -1,3 +1,11 @@
+""" OpenMath Encode/Decode Library
+===================================
+
+This module provides methods for encoding and decoding OpenMath 
+"objects" from various sources.
+
+"""
+
 # Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
 
@@ -14,13 +22,28 @@ from omput import *
 ################################################################
 
 def ParseOMfile(fname):
-    "Test docstring"
+    """ Parses OpenMath XML from a file.
+
+    Parses the file contents and calls the decoder on the root 
+    of the tree produced.
+
+    :param fname: The path to the file containing the XML data
+    :returns: The object represented by the file contents
+    """
     tree = ET.parse(fname)
     root = tree.getroot()
     omobj = ParseOMroot(root)
     return omobj
 
 def ParseOMstring(omstring):
+    """ Parses OpenMath XML from a string.
+
+    Parses the string contents and calls the decoder on the root 
+    of the tree produced.
+
+    :params omstring: The string representation of the XML data.
+    :returns: The object represented by the XML from the string.
+    """
     root = ET.fromstring(omstring)
     omobj = ParseOMroot(root)
     return omobj
