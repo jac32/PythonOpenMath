@@ -1,4 +1,5 @@
 """ Encoding objects to OpenMath XML
+=====================================
 
 This module provides  a number of functions for encoding "objects"
 into OpenMath XML format.

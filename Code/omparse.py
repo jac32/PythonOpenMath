@@ -1,4 +1,5 @@
-""" Parsing OpenMath objects
+""" Parsing OpenMath Objects
+=============================
 
 This module provides a number of functions for decoding "objects"
 from the parsed XML tree.
@@ -12,13 +13,13 @@ from the parsed XML tree.
 
 
 def ParseOMI(node):
-    """ Parses a basic OpenMath integer node
+    """ Parses a basic OpenMath integer node.
 
     Translates between the OpenMath XML representation of an integer,
-    i.e. an OMI node, and a Python integer
+    i.e. an OMI node, and a Python integer.
 
-    :param node: The OMI XML node object
-    :returns: The integer value of the node
+    :param node: The OMI XML node object.
+    :returns: The integer value of the node.
     :rtype: int
     
     """
@@ -50,18 +51,18 @@ omdicts['logic1']['true'] = True
 
 ###############################################################
 def ParseOMS(node):
-    """ Parses a OpenMath Symbol node
+    """ Parses a OpenMath Symbol node.
 
     Looks up the OpenMath content dictionaries for the correct 
     function for parsing the adjacent nodes.
 
-    :param node: The XML node representing the OpenMath Symbol
-    :returns: The function to apply to the list of adjacent nodes
+    :param node: The XML node representing the OpenMath Symbol.
+    :returns: The function to apply to the list of adjacent nodes.
     """
     return omdicts[ node.get('cd') ][ node.get('name') ]
 
 def ParseOMA(node):
-    """ Parses the contents of an OpenMath Application node
+    """ Parses the contents of an OpenMath Application node.
 
     Fetches the children of the node. The first child is a symbol 
     so look up its type in the content dictionary and get the 
@@ -69,8 +70,8 @@ def ParseOMA(node):
     This function should then be applied to the remaining children
     and the result returned.
     
-    :param node: The XML node representing the OpenMath Application
-    :returns: The result of evaluating the OpenMath Application 
+    :param node: The XML node representing the OpenMath Application.
+    :returns: The result of evaluating the OpenMath Application .
     """
     elts = []
     for child in node.findall("*"):
