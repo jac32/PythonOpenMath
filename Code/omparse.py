@@ -51,6 +51,7 @@ omdicts['logic1']['true'] = True
 ###############################################################
 def ParseOMS(node):
     """ Parses a OpenMath Symbol node
+
     Looks up the OpenMath content dictionaries for the correct 
     function for parsing the adjacent nodes.
 
@@ -60,6 +61,17 @@ def ParseOMS(node):
     return omdicts[ node.get('cd') ][ node.get('name') ]
 
 def ParseOMA(node):
+    """ Parses the contents of an OpenMath Application node
+
+    Fetches the children of the node. The first child is a symbol 
+    so look up its type in the content dictionary and get the 
+    application function. 
+    This function should then be applied to the remaining children
+    and the result returned.
+    
+    :param node: The XML node representing the OpenMath Application
+    :returns: The result of evaluating the OpenMath Application 
+    """
     elts = []
     for child in node.findall("*"):
         elts.append( ParseOMelement(child) )
@@ -104,7 +116,7 @@ def ParseOMroot(root):
     omobj = ParseOMroot(tree)
     >>> print(omobj)
     print(omobj)
-    48
+    42
     """
     return ParseOMelement(root[0])
 

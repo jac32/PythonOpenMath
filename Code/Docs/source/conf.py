@@ -57,7 +57,7 @@ master_doc = 'index'
 # General information about the project.
 project = u'Python OpenMath'
 copyright = u'2016, 140013444'
-author = u'140013444'
+author = u'140013444' u'140022544' 
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -366,4 +366,4 @@ epub_exclude_files = ['search.html']
 
 # Example configuration for intersphinx: refer to the Python standard library.
 intersphinx_mapping = {'https://docs.python.org/': None}
-sys.path.insert(0, os.path.abspath('.'))
+sys.path.insert(0, os.path.abspath('../..'))

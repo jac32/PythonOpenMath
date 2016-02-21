@@ -1,3 +1,10 @@
+""" Encoding objects to OpenMath XML
+
+This module provides  a number of functions for encoding "objects"
+into OpenMath XML format.
+
+"""
+
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
 
@@ -10,6 +17,14 @@ SubElement = ET.SubElement
 # OpenMath integer (OMI)
 #
 def OMInt( x ):
+    """ Int element encoding method.
+    
+    Creates a new OMI element and puts the string representation of
+    the int within the node.
+    
+    :param x: The integer to be represented by the OMI element
+    :returns: The OMI element representing the given integer
+    """
     omelt = Element("OMI")
     omelt.text = str(x)
     return omelt
@@ -19,6 +34,14 @@ def OMInt( x ):
 # List (list1.list)
 #
 def OMList( x ):
+    """ List element encoding method.
+    
+    Creates a new OMA element and encodes the list to be stored within.
+
+    :param x: The list to be encoded within an OMA element.
+    :returns: The OMA element representing the given list.
+
+    """
     omelt = Element("OMA")
     oms = Element("OMS")
     oms.attrib = { 'cd' : 'list1', 'name' : 'list' }
@@ -36,6 +59,15 @@ def OMList( x ):
 # Dispatches OpenMath encoding method dependently on the type of x
 #
 def OMelement( x ):
+    """ Runs the correct OpenMath encoding method on a given object.
+
+    Dispatches OpenMath encoding method dependently on the type of 
+    the object.
+
+    :params x: The element to be encoded.
+    :returns: The OpenMath encoded element 
+    
+    """
     t = type (x)
     if t == int:
         return OMInt(x)
@@ -49,6 +81,14 @@ def OMelement( x ):
 # Wraps OpenMath encoding for x into OpenMath object
 #
 def OMobject( x ):
+    """ Returns the OpenMath encoding of a given object.
+
+    Creates the OMOBJ element and inserts the appropriate elements within.
+
+    :param x: The object to be converted to its OpenMath XML representation
+    :returns: XML tree representation of the OpenMath XML object
+
+    """
     omobj = Element("OMOBJ")
     omobj.insert(1,OMelement(x))
     return omobj

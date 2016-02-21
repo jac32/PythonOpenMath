@@ -10,7 +10,7 @@ omparse.py - OpenMath -> Python
 .. automodule:: omparse
 		:members:
 
-omparse.py - Python -> OpenMath
+omput.py - Python -> OpenMath
 ==============================================
 
 .. automodule:: omput
