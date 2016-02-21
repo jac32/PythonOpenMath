@@ -51,9 +51,24 @@ def ParseOMstring(omstring):
 ################################################################
 
 def OMstring( x ):
+    """ Produces a string representation of an OpenMath XML object
+    
+    Creates a string containing the OpenMath XML representation
+    of the given object.
+
+    :params x: The object to be encoded to the string
+    :returns: The OpenMath XML string representation of the given x
+    """
     return ET.tostring( OMobject( x ) ) 
 
 def OMprint( x ):
+    """ Prints the string representation of the object 
+
+    Creates a string containing the OpenMath XML representation
+    of the given object and outputs it to std out
+
+    :params x: The object to be encoded to the string
+    """
     ET.dump( OMobject( x ) ) 
 
 ################################################################
