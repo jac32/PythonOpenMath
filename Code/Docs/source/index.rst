@@ -12,7 +12,9 @@ Contents:
    :maxdepth: 2
 
    build.rst
-   code.rst
+   openmath.rst
+   omparse.rst
+   omput.rst
    
 
 
