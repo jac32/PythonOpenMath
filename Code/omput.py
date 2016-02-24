@@ -53,6 +53,26 @@ def OMList( x ):
         omelt.insert(n, OMelement(t))
     return omelt
 
+def OMBool( x ):
+    """ Boolean element encoding method.
+    
+    Creates a new OMA element and encodes the boolean value
+    to be stored within.
+
+    :param x: The list to be encoded within an OMA element.
+    :returns: The OMA element representing the given bool.
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    if (x):
+        oms.attrib = { 'cd' : 'logic1', 'name': 'true' }
+    else:
+        oms.attrib = { 'cd' : 'logic1', 'name': 'false' }
+
+    omelt.insert(0,oms)
+    return omelt
+    
+
 ################################################################
 #
 # OMelement
@@ -74,6 +94,9 @@ def OMelement( x ):
         return OMInt(x)
     elif t == list:
         return OMList(x)
+    elif t == bool:
+        return OMBool(x)
+    
 
 ################################################################
 #

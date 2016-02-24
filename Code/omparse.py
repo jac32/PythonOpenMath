@@ -46,8 +46,8 @@ omdicts['list1']['list'] = oms_list1_list
 omdicts['logic1'] = {}
 
 # logic1.true
-omdicts['logic1']['true'] = True
-
+omdicts['logic1']['true'] = lambda x: True
+omdicts['logic1']['false'] = lambda x: False
 
 ###############################################################
 def ParseOMS(node):
