@@ -95,6 +95,16 @@ def OMComplexCartesian( x ):
     omelt.insert(3,OMelement(int(x.imag)))
     return omelt
 
+def OMIntegerInterval( x ):
+    """
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = { 'cd' : 'interval1', 'name': 'integer_interval' }
+    omelt.insert(1,oms)
+    omelt.insert(2,OMelement(x[0]))
+    omelt.insert(3,OMelement(x[-1]+1))
+    return omelt
 ################################################################
 #
 # OMelement
@@ -120,9 +130,10 @@ def OMelement( x ):
         return OMBool(x)
     elif t == tuple:
         return OMRational(x)
-    else:# t == complex:
+    elif t == complex:
         return OMComplexCartesian(x)
-
+    elif t == range:
+        return OMIntegerInterval(x)
 ################################################################
 #
 # OMobject
