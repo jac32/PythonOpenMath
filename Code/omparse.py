@@ -32,6 +32,15 @@ def ParseOMI(node):
 #
 omdicts = {}
 
+# nums1    http://www.openmath.org/cd/nums1.xhtml1
+omdicts['nums1'] = {}
+
+def oms_nums1_rational(list):
+    if (len(list) == 2):
+        return (list[0],list[1])
+
+omdicts['nums1']['rational'] = oms_nums1_rational
+
 # list1    http://www.openmath.org/cd/list1.xhtml
 omdicts['list1'] = {}
 
