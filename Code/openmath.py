@@ -1,3 +1,4 @@
+
 """ OpenMath Encode/Decode Library
 ===================================
 

@@ -83,7 +83,17 @@ def OMRational ( x ):
     omelt.insert(2, OMelement(x[0]))
     omelt.insert(3, OMelement(x[1]))
     return omelt
-    
+
+def OMComplexCartesian( x ):
+    """
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = { 'cd' : 'complex1', 'name': 'complex_cartesian' }
+    omelt.insert(1,oms)
+    omelt.insert(2,OMelement(int(x.real)))
+    omelt.insert(3,OMelement(int(x.imag)))
+    return omelt
 
 ################################################################
 #
@@ -110,6 +120,8 @@ def OMelement( x ):
         return OMBool(x)
     elif t == tuple:
         return OMRational(x)
+    else:# t == complex:
+        return OMComplexCartesian(x)
 
 ################################################################
 #
