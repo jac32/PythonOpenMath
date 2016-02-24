@@ -11,140 +11,152 @@ from the parsed XML tree.
 # Basic OpenMath elements
 #
 
-
-def ParseOMI(node):
+def parse_omi(node):
     """ Parses a basic OpenMath integer node.
 
-    Translates between the OpenMath XML representation of an integer,
-    i.e. an OMI node, and a Python integer.
+    Translates between the OpenMath XML representation
+    of an integer, i.e. an OMI node, and a Python integer.
 
     :param node: The OMI XML node object.
     :returns: The integer value of the node.
     :rtype: int
-    
     """
     return int(node.text)
-    
+
+def oms_nums1_rational(elements):
+    """ Parses an OpenMath ratio node.
+
+    Translates between the OpenMath XML representation of a rational
+    number, and the tuple representation used within this library.
+
+    :param elements: A list containing the numerator and denominator
+    :returns: A pair representing the ratio
+    :rtype: tuple
+    """
+    if len(elements) == 2:
+        return (elements[0], elements[1])
+
+def oms_complex1_complex_cartesian(elements):
+    """ Parses an OpenMath ratio node
+
+    Translates between the OpenMath XML representation of a complex
+    cartisian number, and a python complex number.
+
+    :param elements: A list containing the real and imaginary parts
+    :returns: The complex number represented by the node
+    :rtype: complex
+    """
+    if len(elements) == 2:
+        return complex(elements[0], elements[1])
+
+def oms_interval1_integer_interval(elements):
+    """ Parses an OpenMath integer interval node
+
+    Translates between the OpenMath XML representation of an
+    integer interval, and a python range object
+
+    :param elements: A list containing the inclusive limits for the range
+    :returns: The range of elements represented by the node
+    :rtype: range
+    """
+    if len(elements) == 2:
+        return range(elements[0], elements[1])
+
+def oms_list1_list(elements):
+    """ Parses a list of OpenMath nodes.
+
+    Simply returns the list of elements unaltered.
+
+    :param elements: A list of elements
+    :returns: The list of elements
+    :rtype: list
+    """
+    return elements
 
 ################################################################
 #
 # OpenMath content dictionaries
 #
-omdicts = {}
-
-# linalg2     http://www.openmath.org/cd/linalg2.xhtml
-omdicts['linalg2'] = {}
-
-def oms_linalg2_matrix_row(row):
-    return row
-
-omdicts['linalg2']['matrixrow'] = oms_linalg2_matrix_row
-
-def oms_linalg2_matrix(rows):
-    return rows
-
-omdicts['linalg2']['matrix'] = oms_linalg2_matrix
-
-
-
-# interval1   http://www.openmath.org/cd/interval1.xhtml
-omdicts['interval1'] = {}
-
-def oms_interval1_integer_interval(list):
-    if (len(list) == 2):
-        return range(list[0],list[1])
-        
-omdicts['interval1']['integer_interval'] = oms_interval1_integer_interval
-
-
-# complex1    http://www.openmath.org/cd/complex1.xhtml
-omdicts['complex1'] = {}
-
-def oms_complex1_complex_cartesian(list):
-    if (len(list) == 2):
-        return complex(list[0],list[1])
-
-omdicts['complex1']['complex_cartesian'] = oms_complex1_complex_cartesian
-
-
-
-# nums1    http://www.openmath.org/cd/nums1.xhtml1
-omdicts['nums1'] = {}
-
-def oms_nums1_rational(list):
-    if (len(list) == 2):
-        return (list[0],list[1])
-
-omdicts['nums1']['rational'] = oms_nums1_rational
-
-# list1    http://www.openmath.org/cd/list1.xhtml
-omdicts['list1'] = {}
-
-# list1.list
-def oms_list1_list(list):
-    return list
-
-omdicts['list1']['list'] = oms_list1_list
-
+OMDICTS = {}
 
 # logic1	http://www.openmath.org/cd/logic1.xhtml
-omdicts['logic1'] = {}
+OMDICTS['logic1'] = {}
+OMDICTS['logic1']['true'] = lambda x: True
+OMDICTS['logic1']['false'] = lambda x: False
 
-# logic1.true
-omdicts['logic1']['true'] = lambda x: True
-omdicts['logic1']['false'] = lambda x: False
+# nums1    http://www.openmath.org/cd/nums1.xhtml1
+OMDICTS['nums1'] = {}
+OMDICTS['nums1']['rational'] = oms_nums1_rational
+
+# complex1    http://www.openmath.org/cd/complex1.xhtml
+OMDICTS['complex1'] = {}
+OMDICTS['complex1']['complex_cartesian'] = oms_complex1_complex_cartesian
+
+# interval1   http://www.openmath.org/cd/interval1.xhtml
+OMDICTS['interval1'] = {}
+OMDICTS['interval1']['integer_interval'] = oms_interval1_integer_interval
+
+
+# list1    http://www.openmath.org/cd/list1.xhtml
+OMDICTS['list1'] = {}
+OMDICTS['list1']['list'] = oms_list1_list
+
+# linalg2     http://www.openmath.org/cd/linalg2.xhtml
+OMDICTS['linalg2'] = {}
+OMDICTS['linalg2']['matrix'] = oms_list1_list
+OMDICTS['linalg2']['matrixrow'] = oms_list1_list
+
 
 ###############################################################
-def ParseOMS(node):
+def parse_oms(node):
     """ Parses a OpenMath Symbol node.
 
-    Looks up the OpenMath content dictionaries for the correct 
+    Looks up the OpenMath content dictionaries for the correct
     function for parsing the adjacent nodes.
 
     :param node: The XML node representing the OpenMath Symbol.
     :returns: The function to apply to the list of adjacent nodes.
     """
-    return omdicts[ node.get('cd') ][ node.get('name') ]
+    return OMDICTS[node.get('cd')][node.get('name')]
 
-def ParseOMA(node):
+def parse_oma(node):
     """ Parses the contents of an OpenMath Application node.
 
-    Fetches the children of the node. The first child is a symbol 
-    so look up its type in the content dictionary and get the 
-    application function. 
+    Fetches the children of the node. The first child is a symbol
+    so look up its type in the content dictionary and get the
+    application function.
     This function should then be applied to the remaining children
     and the result returned.
-    
+
     :param node: The XML node representing the OpenMath Application.
     :returns: The result of evaluating the OpenMath Application .
     """
     elts = []
     for child in node.findall("*"):
-        elts.append( ParseOMelement(child) )
-    # now the first element of 'elts' is a function to be applied to the rest of the list
-    return elts[0](elts[1:len(elts)]) 
+        elts.append(parse_om_element(child))
+    return elts[0](elts[1:len(elts)])
 
-ParseOMelementHandler = { 'OMI' : ParseOMI, 'OMS' : ParseOMS, 'OMA' : ParseOMA }
+PARSE_OM_ELEMENT_HANDLER = {'OMI' : parse_omi, 'OMS' : parse_oms, 'OMA' : parse_oma}
 
-def ParseOMelement(obj):
+def parse_om_element(obj):
     """ Appropriately parses a OpenMath XML element
-    
+
     Uses the `parseOMelementHandler` dictionary to fetch the correct parsing
-    function based on the element's XML tag. 
+    function based on the element's XML tag.
     This allows for the ype of element to be identified and the subtree to be
     handled correctly.
 
     :param obj: The node of the tree to be parsed
     :returns: The python representation of the OpenMath XML subtree
     """
-    return ParseOMelementHandler[obj.tag](obj)
+    return PARSE_OM_ELEMENT_HANDLER[obj.tag](obj)
 
-def ParseOMroot(root):
-    """ Parses a OpenMath XML tree 
-    
+def parse_om_root(root):
+    """ Parses a OpenMath XML tree
+
     Function should be called on the root element of an OpenMath XML tree.
     Should be the main point of interaction with this module.
-    
+
     :param root: The root node of the XML tree.
     :returns: The Python representation of the OpenMath object.
 
@@ -164,11 +176,6 @@ def ParseOMroot(root):
     print(omobj)
     42
     """
-    return ParseOMelement(root[0])
+    return parse_om_element(root[0])
 
 
-################################################################
-
-if __name__ == "__main__":
-    import doctest
-    doctest.testmod()

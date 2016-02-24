@@ -1,56 +1,54 @@
 import openmath
 from openmath import *
+from fractions import Fraction
 
 s = '<OMOBJ> <OMI>42</OMI> </OMOBJ>'
-ParseOMstring(s)
+parse_om_string(s)
 
 s = '<OMOBJ> <OMA> <OMS cd="list1" name="list"/> <OMI>41</OMI> <OMI>42</OMI> <OMI>43</OMI> </OMA> </OMOBJ>'
-ParseOMstring(s)
+parse_om_string(s)
 
 s = '<OMOBJ> <OMA> <OMS cd="list1" name="list"/> <OMI>41</OMI> <OMI>42</OMI> <OMI>43</OMI> <OMA> <OMS cd="list1" name="list"/> <OMI>41</OMI> <OMI>42</OMI> <OMI>43</OMI> </OMA> </OMA> </OMOBJ>'
-ParseOMstring(s)
+parse_om_string(s)
 
 s= '<OMOBJ> <OMA> <OMS cd="logic1" name="false"/> </OMA> </OMOBJ>'
-ParseOMstring(s)
+parse_om_string(s)
 
 
-ParseOMfile('tst/integer.xml')
-ParseOMfile('tst/list.xml')
-ParseOMfile('tst/listnested.xml')
-ParseOMfile('tst/bool.xml')
-ParseOMfile('tst/rational.xml')
-ParseOMfile('tst/complex_simp.xml')
-ParseOMfile('tst/range.xml')
-ParseOMfile('tst/matrix.xml')
-OMprint(ParseOMfile('tst/matrix.xml'))
+parse_om_file('tst/integer.xml')
+parse_om_file('tst/list.xml')
+parse_om_file('tst/listnested.xml')
+parse_om_file('tst/bool.xml')
+parse_om_file('tst/rational.xml')
+parse_om_file('tst/complex_simp.xml')
+parse_om_file('tst/range.xml')
+parse_om_file('tst/matrix.xml')
+om_print(parse_om_file('tst/matrix.xml'))
 
-OMprint(range(-20,20))
-OMprint(ParseOMstring('<OMOBJ><OMA><OMS cd="interval1" name="integer_interval" /><OMI>-20</OMI><OMI>20</OMI></OMA></OMOBJ>'))
-
-
+om_print(range(-20,20))
+om_print(parse_om_string('<OMOBJ><OMA><OMS cd="interval1" name="integer_interval" /><OMI>-20</OMI><OMI>20</OMI></OMA></OMOBJ>'))
 
 
-print
-OMprint(1+2j)
-OMprint((3,2))
-OMprint(False)
-OMstring(42)
-OMprint(42)
+om_print(1+2j)
+om_print(Fraction(3,2))
+om_print(False)
+om_string(42)
+om_print(42)
 
-OMstring([1,2,3])
-OMprint([1,2,3])
+om_string([1,2,3])
+om_print([1,2,3])
 
-OMprint([1,2,[3,4,5]])
-OMstring([1,2,[3,4,5]])
+om_print([1,2,[3,4,5]])
+om_string([1,2,[3,4,5]])
 
 # tests
 a = 42
-a == ParseOMstring(OMstring(a))
+a == parse_om_string(om_string(a))
 
 a = [1,2,3]
-a == ParseOMstring(OMstring(a))
+a == parse_om_string(om_string(a))
 
 a = [1,2,[3,4,5]]
-a == ParseOMstring(OMstring(a))
+a == parse_om_string(om_string(a))
 
 
