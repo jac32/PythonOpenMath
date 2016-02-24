@@ -32,6 +32,17 @@ def ParseOMI(node):
 #
 omdicts = {}
 
+# complex1    http://www.openmath.org/cd/complex1.xhtml1
+omdicts['complex1'] = {}
+
+def oms_complex1_complex_cartesian(list):
+    if (len(list) == 2):
+        return complex(list[0],list[1])
+
+omdicts['complex1']['complex_cartesian'] = oms_complex1_complex_cartesian
+
+
+
 # nums1    http://www.openmath.org/cd/nums1.xhtml1
 omdicts['nums1'] = {}
 
