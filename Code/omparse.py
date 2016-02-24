@@ -32,6 +32,21 @@ def ParseOMI(node):
 #
 omdicts = {}
 
+# linalg2     http://www.openmath.org/cd/linalg2.xhtml
+omdicts['linalg2'] = {}
+
+def oms_linalg2_matrix_row(row):
+    return row
+
+omdicts['linalg2']['matrixrow'] = oms_linalg2_matrix_row
+
+def oms_linalg2_matrix(rows):
+    return rows
+
+omdicts['linalg2']['matrix'] = oms_linalg2_matrix
+
+
+
 # interval1   http://www.openmath.org/cd/interval1.xhtml
 omdicts['interval1'] = {}
 

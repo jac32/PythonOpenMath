@@ -53,6 +53,37 @@ def OMList( x ):
         omelt.insert(n, OMelement(t))
     return omelt
 
+def OMMatrix( x ):
+    """
+
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = { 'cd' : 'linalg2', 'name' : 'matrix' }
+    omelt.insert(1,oms)
+    n = 1
+    for r in x:
+        n = n+1
+        row = OMMatrixRow(r)
+        omelt.insert(n,row)
+        
+    return omelt
+
+
+def OMMatrixRow( x ):
+    """
+
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = { 'cd' : 'linalg2', 'name' : 'matrixrow' }
+    omelt.insert(1,oms)
+    n = 1
+    for t in x: 
+        n = n + 1
+        omelt.insert(n, OMelement(t))
+    return omelt
+    
 def OMBool( x ):
     """ Boolean element encoding method.
     
@@ -125,6 +156,8 @@ def OMelement( x ):
     if t == int:
         return OMInt(x)
     elif t == list:
+        if type(x[0]) == list:
+            return OMMatrix(x)
         return OMList(x)
     elif t == bool:
         return OMBool(x)
@@ -134,6 +167,7 @@ def OMelement( x ):
         return OMComplexCartesian(x)
     elif t == range:
         return OMIntegerInterval(x)
+
 ################################################################
 #
 # OMobject

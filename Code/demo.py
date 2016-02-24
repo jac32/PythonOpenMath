@@ -21,11 +21,14 @@ ParseOMfile('tst/bool.xml')
 ParseOMfile('tst/rational.xml')
 ParseOMfile('tst/complex_simp.xml')
 ParseOMfile('tst/range.xml')
+ParseOMfile('tst/matrix.xml')
+OMprint(ParseOMfile('tst/matrix.xml'))
+
 OMprint(range(-20,20))
 OMprint(ParseOMstring('<OMOBJ><OMA><OMS cd="interval1" name="integer_interval" /><OMI>-20</OMI><OMI>20</OMI></OMA></OMOBJ>'))
 
 
-p
+
 
 print
 OMprint(1+2j)
