@@ -38,7 +38,6 @@ omdicts['interval1'] = {}
 def oms_interval1_integer_interval(list):
     if (len(list) == 2):
         return range(list[0],list[1])
-
         
 omdicts['interval1']['integer_interval'] = oms_interval1_integer_interval
 
