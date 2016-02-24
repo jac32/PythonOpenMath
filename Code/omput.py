@@ -71,6 +71,18 @@ def OMBool( x ):
 
     omelt.insert(0,oms)
     return omelt
+
+def OMRational ( x ):
+    """
+
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = { 'cd' : 'nums1', 'name': 'rational' }
+    omelt.insert(1,oms)
+    omelt.insert(2, OMelement(x[0]))
+    omelt.insert(3, OMelement(x[1]))
+    return omelt
     
 
 ################################################################
@@ -96,7 +108,8 @@ def OMelement( x ):
         return OMList(x)
     elif t == bool:
         return OMBool(x)
-    
+    elif t == tuple:
+        return OMRational(x)
 
 ################################################################
 #
