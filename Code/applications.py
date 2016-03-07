@@ -6,6 +6,7 @@ Created on 7/3/2016
 # Basic OpenMath elements
 #
 from math import factorial
+from fractions import Fraction
 
 def parse_omf(node):
     """ Parses a basic OpenMath float node.
@@ -57,18 +58,6 @@ def oms_complex1_complex_cartesian(elements):
     imag = elements[1]
     return complex(real, imag)
 
-def oms_interger1_factorial(num):
-    """ Parses a matrix, which consists of a list of OpenMath matrix rows.
-
-    Simply returns the list of elements unaltered, provided
-    all rows are of the same length.
-
-    :param num: the number to calculate the factorial of
-    :returns: The representation of the factorial
-    :rtype: int
-    """
-    return factorial(num) 
-
 def oms_nums1_rational(elements):
     """ Parses an OpenMath ratio node.
 
@@ -81,7 +70,7 @@ def oms_nums1_rational(elements):
     """
     numerator = elements[0]
     denominator = elements[1]
-    return (numerator,denominator)
+    return Fraction(numerator,denominator)
 
 def oms_interval1_integer_interval(elements):
     """ Parses an OpenMath integer interval node
