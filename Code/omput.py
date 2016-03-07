@@ -28,13 +28,33 @@ def om_int(int_):
     Creates a new OMI element and puts the string representation of
     the int within the node.
 
-    :param x: The integer to be represented by the OMI element
+    :param int_: The integer to be represented by the OMI element
     :returns: The OMI element representing the given integer
     """
     omelt = Element("OMI")
     omelt.text = str(int_)
     print(omelt.text)
     return omelt
+
+
+################################################################
+#
+# OpenMath float (OMF)
+#
+def om_float(float_):
+    """ Float element encoding method.
+
+    Creates a new OMF element and puts the string representation of
+    the float within the node.
+
+    :param float_: The float to be represented by the OMF element
+    :returns: The OMF element representing the given float
+    """
+    omelt = Element("OMF")
+    omelt.text = str(float_)
+    print(omelt.text)
+    return omelt
+
 
 ################################################################
 #
@@ -193,6 +213,8 @@ BROKEN: isinstance returns false
     """
     if isinstance(element, int):
         return om_int(element)
+    elif isinstance(element,float):
+        return om_float(element)
     elif isinstance(element, Rational):
         return om_rational(element)
     elif isinstance(element, List):

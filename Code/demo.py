@@ -50,6 +50,9 @@ om_string(List([1,2,List([3,4,5])]))
 a = 42
 a == parse_om_string(om_string(a))
 
+a= 3.4
+a== parse_om_string(om_string(a))
+
 a = List([1,2,3])
 a == parse_om_string(om_string(a))
 

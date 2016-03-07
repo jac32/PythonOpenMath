@@ -17,6 +17,18 @@ from Interval import *
 # Basic OpenMath elements
 #
 
+def parse_omf(node):
+    """ Parses a basic OpenMath float node.
+
+    Translates between the OpenMath XML representation
+    of an float, i.e. an OMF node, and a Python float.
+
+    :param node: The OMF XML node object.
+    :returns: The float value of the node.
+    :rtype: float
+    """
+    return float(node.text)
+
 def parse_omi(node):
     """ Parses a basic OpenMath integer node.
 
@@ -90,7 +102,7 @@ def parse_oma(node):
         elts.append(parse_om_element(child))
     return elts[0](elts[1:len(elts)])
 
-PARSE_OM_ELEMENT_HANDLER = {'OMI' : parse_omi, 'OMS' : parse_oms, 'OMA' : parse_oma}
+PARSE_OM_ELEMENT_HANDLER = {'OMI' : parse_omi, 'OMS' : parse_oms, 'OMA' : parse_oma, 'OMF': parse_omf}
 
 def parse_om_element(obj):
     """ Appropriately parses a OpenMath XML element
