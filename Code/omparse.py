@@ -6,7 +6,7 @@ from the parsed XML tree.
 
 """
 from Matrix import Matrix,MatrixRow
-from App import *
+from applications import *
 
 ################################################################
 #
