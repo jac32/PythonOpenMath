@@ -208,9 +208,6 @@ def om_element(element):
 
     :params element: The element to be encoded.
     :returns: The OpenMath encoded element
-
-    BROKEN: isinstance returns false
-
     """
     if isinstance(element, int):
         return om_int(element)

@@ -15,9 +15,11 @@ class List(object):
                 """
                 function describing printing out lists
                 """
+                str_ = ""
                 for i in self.elements:
-                        print(i,end=" ")
-
+                        str_+= str(i)
+                        str_ += ", "
+                return str_
         
         def oms_list1_list(self,elements):
                 """ Parses a list of OpenMath nodes.
