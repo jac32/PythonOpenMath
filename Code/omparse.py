@@ -48,8 +48,8 @@ OMDICTS = {}
 
 # logic1	http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
-OMDICTS['logic1']['true'] = lambda x: True
-OMDICTS['logic1']['false'] = lambda x: False
+OMDICTS['logic1']['true'] = True
+OMDICTS['logic1']['false'] = False
 
 # nums1    http://www.openmath.org/cd/nums1.xhtml1
 OMDICTS['nums1'] = {}
