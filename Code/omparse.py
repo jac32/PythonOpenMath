@@ -8,10 +8,9 @@ from the parsed XML tree.
 
 from Complex import Complex
 from Rational import Rational
-from List import List
 from Interval import Interval
-from Matrix import *
-
+from Matrix import Matrix,MatrixRow
+import Factorial
 ################################################################
 #
 # Basic OpenMath elements
@@ -40,6 +39,19 @@ def parse_omi(node):
     :rtype: int
     """
     return int(node.text)
+
+def oms_list1_list(elements):
+    """ Parses a list of OpenMath nodes.
+
+    Simply returns the list of elements unaltered.
+
+    :param elements: A list of elements
+    :returns: The list of elements
+    :rtype: list
+    """
+    return elements
+
+
 ################################################################
 #
 # OpenMath content dictionaries
@@ -63,9 +75,13 @@ OMDICTS['complex1']['complex_cartesian'] = Complex
 OMDICTS['interval1'] = {}
 OMDICTS['interval1']['integer_interval'] = Interval
 
+#integer1     http://www.openmath.org/cd/integer1.xhtml
+OMDICTS['integer1'] = {}
+OMDICTS['integer1']['factorial'] = Factorial
+
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
-OMDICTS['list1']['list'] = List 
+OMDICTS['list1']['list'] = oms_list1_list
 
 # linalg2     http://www.openmath.org/cd/linalg2.xhtml
 OMDICTS['linalg2'] = {}
@@ -109,7 +125,7 @@ def parse_om_element(obj):
 
     Uses the `parseOMelementHandler` dictionary to fetch the correct parsing
     function based on the element's XML tag.
-    This allows for the ype of element to be identified and the subtree to be
+    This allows for the type of element to be identified and the subtree to be
     handled correctly.
 
     :param obj: The node of the tree to be parsed

@@ -3,7 +3,6 @@ from openmath import *
 from fractions import Fraction
 from Complex import Complex
 from Rational import Rational
-from List import List
 from Interval import Interval
 
 
@@ -30,6 +29,8 @@ parse_om_file('tst/bool.xml')
 parse_om_file('tst/rational.xml')
 parse_om_file('tst/complex_simp.xml')
 parse_om_file('tst/range.xml')
+parse_om_file('tst/float.xml')
+#parse_om_file('tst/factorial.xml')
 a= parse_om_file('tst/matrix.xml')
 om_print(a)
 
@@ -41,11 +42,11 @@ om_print(Complex([1,2]))
 om_print(Rational([3,2]))
 om_print(False)
 
-om_string(List([1,2,3]))
-om_print(List([1,2,3]))
+om_string([1,2,3])
+om_print([1,2,3])
 
-om_print(List([1,2,List([3,4,5])]))
-om_string(List([1,2,List([3,4,5])]))
+om_print([1,2,[3,4,5]])
+om_string([1,2,[3,4,5]])
 
 # tests
 a = 42
@@ -55,10 +56,10 @@ a == parse_om_string(om_string(a))
 a = 5.4
 a == parse_om_string(om_string(a))
 
-a = List([1,2,3])
+a = [1,2,3]
 a == parse_om_string(om_string(a))
 
-a = List([1,2,List([3,4,5])])
+a = [1,2,[3,4,5]]
 a == parse_om_string(om_string(a))
 
 

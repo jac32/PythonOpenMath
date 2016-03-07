@@ -8,14 +8,15 @@ into OpenMath XML format.
 from fractions import Fraction
 from Complex import Complex
 from Rational import Rational
-from List import List
 from Interval import Interval
-from Matrix import *
+from Matrix import Matrix,MatrixRow
+import Factorial
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
 
 import xml.etree.ElementTree as ET
+from Factorial import Factorial
 Element = ET.Element
 SUBELEMENT = ET.SubElement
 
@@ -59,6 +60,26 @@ def om_float(float_):
 
 ################################################################
 #
+# OpenMath Factorial
+#
+def om_factorial(factorial):
+    """ Factorial encoding method
+    
+    Creates a new OMS element and encodes the factorial to be 
+    stored within
+    
+    :param factorial: the object storing the number
+    :return The OMS element representing the factorial 
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd':'integer1', 'name':'factorial'}
+    omelt.insert(1, oms)
+    omelt.insert(2,om_element(factorial.num))
+    return omelt
+
+################################################################
+#
 # OpenMath rational
 #
 def om_rational(ratio):
@@ -67,7 +88,7 @@ def om_rational(ratio):
     Creates a new OMA element and encodes the ratio to be
     stored within.
 
-    :param x: The tuple representing the ratio
+    :param ratio: The object representing the ratio
     :returns: The OMA element representing the ratio
     """
     omelt = Element("OMA")
@@ -97,7 +118,7 @@ def om_list(list_):
     oms.attrib = {'cd' : 'list1', 'name' : 'list'}
     omelt.insert(1, oms)
     index = 1
-    for item in list_.elements:
+    for item in list_:
         index = index + 1
         omelt.insert(index, om_element(item))
     return omelt
@@ -213,9 +234,11 @@ def om_element(element):
         return om_int(element)
     elif isinstance(element,float):
         return om_float(element)
+    elif isinstance(element, Factorial):
+        return om_factorial(element)
     elif isinstance(element, Rational):
         return om_rational(element)
-    elif isinstance(element, List):
+    elif isinstance(element, list):
         return om_list(element)
     elif isinstance(element, Matrix):
         return om_matrix(element)
