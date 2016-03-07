@@ -8,7 +8,8 @@ from socket import *
 import threading 
 import _thread
 import datetime
-
+from openmath import parse_om_string
+import pickle
 
 def log(message):
     """ Simple logging method
@@ -27,9 +28,8 @@ def handler(clientsock,addr):
         data = clientsock.recv(BUFSIZ)
         if not data:
             break
-        msg = 'echoed:... ' + str(data, 'UTF-8')
-        log(msg)
-        clientsock.send(bytes(msg, 'UTF-8'))
+        result = pickle.dumps(parse_om_string(str(data, 'UTF-8')))
+        clientsock.send(result)
     clientsock.close()
 
 

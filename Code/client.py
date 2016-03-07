@@ -6,6 +6,7 @@ This module provides an instance of a socket client.
 
 import socket
 import datetime
+import pickle
 from server import log
 
 try:
@@ -38,7 +39,7 @@ s.connect((remote_ip, port))
 log ('Socket connected to ' + host + ' on ip ' + remote_ip)
 
 # Send some data to remote server
-message = 'Test Message'
+message = '<OMOBJ><OMI>42</OMI></OMOBJ>'
 
 try:
     #Set the whole string
@@ -49,3 +50,7 @@ except socket.error:
     sys.exit()
 
 print('Message sent successfully')
+data = pickle.loads(s.recv(1024))
+print(str(data))
+    
+
