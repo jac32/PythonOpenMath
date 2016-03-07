@@ -6,10 +6,10 @@ from the parsed XML tree.
 
 """
 
-from Complex import *
-from Rational import *
-from List import *
-from Interval import *
+from Complex import Complex
+from Rational import Rational
+from List import List
+from Interval import Interval
 
 
 ################################################################
@@ -27,7 +27,7 @@ def parse_omf(node):
     :returns: The float value of the node.
     :rtype: float
     """
-    return float(node.text)
+    return float(node.get('dec'))
 
 def parse_omi(node):
     """ Parses a basic OpenMath integer node.

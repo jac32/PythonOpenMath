@@ -6,10 +6,10 @@ into OpenMath XML format.
 
 """
 from fractions import Fraction
-from Complex import *
-from Rational import *
-from List import *
-from Interval import *
+from Complex import Complex
+from Rational import Rational
+from List import List
+from Interval import Interval
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
@@ -51,8 +51,8 @@ def om_float(float_):
     :returns: The OMF element representing the given float
     """
     omelt = Element("OMF")
-    omelt.text = str(float_)
-    print(omelt.text)
+    omelt.attrib = { 'dec' : str(float_)}
+    print(omelt.get('dec'))
     return omelt
 
 
@@ -136,7 +136,7 @@ def om_matrix_row(row):
     oms.attrib = {'cd' : 'linalg2', 'name' : 'matrixrow'}
     omelt.insert(1, oms)
     index = 1
-    for item in row:
+    for item in row.elements:
         index = index + 1
         omelt.insert(index, om_element(item))
     return omelt
@@ -208,7 +208,7 @@ def om_element(element):
     :params element: The element to be encoded.
     :returns: The OpenMath encoded element
 
-BROKEN: isinstance returns false
+    BROKEN: isinstance returns false
 
     """
     if isinstance(element, int):
