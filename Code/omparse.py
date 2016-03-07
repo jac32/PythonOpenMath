@@ -34,7 +34,7 @@ OMDICTS['interval1']['integer_interval'] = oms_interval1_integer_interval
 
 #integer1     http://www.openmath.org/cd/integer1.xhtml
 OMDICTS['integer1'] = {}
-OMDICTS['integer1']['factorial'] = Factorial
+OMDICTS['integer1']['factorial'] = oms_integer1_factorial
 
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
