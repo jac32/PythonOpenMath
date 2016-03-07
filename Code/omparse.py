@@ -5,7 +5,7 @@ This module provides a number of functions for decoding "objects"
 from the parsed XML tree.
 
 """
-from Matrix import Matrix,MatrixRow
+from Matrix import *
 from applications import *
 from fact import *
 
@@ -42,8 +42,8 @@ OMDICTS['list1']['list'] = oms_list1_list
 
 # linalg2     http://www.openmath.org/cd/linalg2.xhtml
 OMDICTS['linalg2'] = {}
-OMDICTS['linalg2']['matrix'] = Matrix
-OMDICTS['linalg2']['matrixrow'] = MatrixRow 
+OMDICTS['linalg2']['matrix'] = oms_linalg2_matrix
+OMDICTS['linalg2']['matrixrow'] = oms_linalg2_matrixrow 
 
 
 ###############################################################
