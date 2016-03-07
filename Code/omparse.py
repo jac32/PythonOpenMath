@@ -5,52 +5,8 @@ This module provides a number of functions for decoding "objects"
 from the parsed XML tree.
 
 """
-
-from Complex import Complex
-from Rational import Rational
-from Interval import Interval
 from Matrix import Matrix,MatrixRow
-import Factorial
-################################################################
-#
-# Basic OpenMath elements
-#
-
-def parse_omf(node):
-    """ Parses a basic OpenMath float node.
-
-    Translates between the OpenMath XML representation
-    of an float, i.e. an OMF node, and a Python float.
-
-    :param node: The OMF XML node object.
-    :returns: The float value of the node.
-    :rtype: float
-    """
-    return float(node.get('dec'))
-
-def parse_omi(node):
-    """ Parses a basic OpenMath integer node.
-
-    Translates between the OpenMath XML representation
-    of an integer, i.e. an OMI node, and a Python integer.
-
-    :param node: The OMI XML node object.
-    :returns: The integer value of the node.
-    :rtype: int
-    """
-    return int(node.text)
-
-def oms_list1_list(elements):
-    """ Parses a list of OpenMath nodes.
-
-    Simply returns the list of elements unaltered.
-
-    :param elements: A list of elements
-    :returns: The list of elements
-    :rtype: list
-    """
-    return elements
-
+from App import *
 
 ################################################################
 #
@@ -60,24 +16,24 @@ OMDICTS = {}
 
 # logic1	http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
-OMDICTS['logic1']['true'] = True
-OMDICTS['logic1']['false'] = False
+OMDICTS['logic1']['true'] = lambda x: True
+OMDICTS['logic1']['false'] = lambda x: False
 
 # nums1    http://www.openmath.org/cd/nums1.xhtml1
 OMDICTS['nums1'] = {}
-OMDICTS['nums1']['rational'] = Rational
+OMDICTS['nums1']['rational'] = oms_nums1_rational
 
 # complex1    http://www.openmath.org/cd/complex1.xhtml
 OMDICTS['complex1'] = {}
-OMDICTS['complex1']['complex_cartesian'] = Complex
+OMDICTS['complex1']['complex_cartesian'] = oms_complex1_complex_cartesian
 
 # interval1   http://www.openmath.org/cd/interval1.xhtml
 OMDICTS['interval1'] = {}
-OMDICTS['interval1']['integer_interval'] = Interval
+OMDICTS['interval1']['integer_interval'] = oms_interval1_integer_interval
 
 #integer1     http://www.openmath.org/cd/integer1.xhtml
 OMDICTS['integer1'] = {}
-OMDICTS['integer1']['factorial'] = Factorial
+OMDICTS['integer1']['factorial'] = oms_interger1_factorial
 
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}

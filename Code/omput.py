@@ -6,17 +6,12 @@ into OpenMath XML format.
 
 """
 from fractions import Fraction
-from Complex import Complex
-from Rational import Rational
-from Interval import Interval
 from Matrix import Matrix,MatrixRow
-import Factorial
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
 
 import xml.etree.ElementTree as ET
-from Factorial import Factorial
 Element = ET.Element
 SUBELEMENT = ET.SubElement
 
@@ -75,7 +70,7 @@ def om_factorial(factorial):
     oms = Element("OMS")
     oms.attrib = {'cd':'integer1', 'name':'factorial'}
     omelt.insert(1, oms)
-    omelt.insert(2,om_element(factorial.num))
+    omelt.insert(2,om_element(factorial))
     return omelt
 
 ################################################################
@@ -214,8 +209,8 @@ def om_integer_interval(interval):
     oms = Element("OMS")
     oms.attrib = {'cd' : 'interval1', 'name': 'integer_interval'}
     omelt.insert(1, oms)
-    omelt.insert(2, om_element(interval.lower))
-    omelt.insert(3, om_element(interval.upper))
+    omelt.insert(2, om_element(interval[0]))
+    omelt.insert(3, om_element(interval[-1]+1))
     return omelt
 ################################################################
 #
@@ -234,9 +229,9 @@ def om_element(element):
         return om_int(element)
     elif isinstance(element,float):
         return om_float(element)
-    elif isinstance(element, Factorial):
-        return om_factorial(element)
-    elif isinstance(element, Rational):
+    #elif isinstance(element, Factorial):
+     #   return om_factorial(element)
+    elif isinstance(element, Fraction):
         return om_rational(element)
     elif isinstance(element, list):
         return om_list(element)
@@ -246,26 +241,10 @@ def om_element(element):
         return om_matrix_row(element)
     elif isinstance(element, bool):
         return om_bool(element)
-    elif isinstance(element, Complex):
+    elif isinstance(element, complex):
         return om_complex_cartesian(element)
-    elif isinstance(element, Interval):
+    elif isinstance(element, range):
         return om_integer_interval(element)
-
-
-def om_list_element(list_):
-    """ Produces the correct list element type.
-
-    Multiple OMA elements are represented by lists.
-    This function inspects the list to decide which OMA it
-    represents.
-
-    :params element: The list representation of the element
-    :returns: The OpenMath representation of the element
-    """
-    if isinstance(list_.elements[0], List):
-        return om_matrix(list_.elements)
-    else:
-        return om_list(list_.elements)
 
 
 ################################################################
