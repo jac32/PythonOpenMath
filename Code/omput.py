@@ -6,15 +6,15 @@ into OpenMath XML format.
 
 """
 from fractions import Fraction
-from complex import *
-from rational import *
-from interval import *
+from Complex import *
+from Rational import *
+from List import *
+from Interval import *
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
 
 import xml.etree.ElementTree as ET
-from interval import Interval
 Element = ET.Element
 SUBELEMENT = ET.SubElement
 
@@ -195,7 +195,7 @@ BROKEN: isinstance returns false
         return om_int(element)
     elif isinstance(element, Rational):
         return om_rational(element)
-    elif isinstance(element, list):
+    elif isinstance(element, List):
         return om_list_element(element)
     elif isinstance(element, bool):
         return om_bool(element)
@@ -205,7 +205,7 @@ BROKEN: isinstance returns false
         return om_integer_interval(element)
 
 
-def om_list_element(element):
+def om_list_element(list_):
     """ Produces the correct list element type.
 
     Multiple OMA elements are represented by lists.
@@ -215,10 +215,10 @@ def om_list_element(element):
     :params element: The list representation of the element
     :returns: The OpenMath representation of the element
     """
-    if isinstance(element[0], list):
-        return om_matrix(element)
+    if isinstance(list_.elements[0], List):
+        return om_matrix(list_.elements)
     else:
-        return om_list(element)
+        return om_list(list_.elements)
 
 
 ################################################################

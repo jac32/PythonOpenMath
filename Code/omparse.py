@@ -1,7 +1,3 @@
-from complex import *
-from rational import *
-from interval import *
-
 """ Parsing OpenMath Objects
 =============================
 
@@ -9,6 +5,12 @@ This module provides a number of functions for decoding "objects"
 from the parsed XML tree.
 
 """
+
+from Complex import *
+from Rational import *
+from List import *
+from Interval import *
+
 
 ################################################################
 #
@@ -26,18 +28,6 @@ def parse_omi(node):
     :rtype: int
     """
     return int(node.text)
-
-def oms_list1_list(elements):
-    """ Parses a list of OpenMath nodes.
-
-    Simply returns the list of elements unaltered.
-
-    :param elements: A list of elements
-    :returns: The list of elements
-    :rtype: list
-    """
-    return elements
-
 ################################################################
 #
 # OpenMath content dictionaries
@@ -46,8 +36,8 @@ OMDICTS = {}
 
 # logic1	http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
-OMDICTS['logic1']['true'] = True
-OMDICTS['logic1']['false'] = False
+OMDICTS['logic1']['true'] = lambda x: True
+OMDICTS['logic1']['false'] = lambda x: False
 
 # nums1    http://www.openmath.org/cd/nums1.xhtml1
 OMDICTS['nums1'] = {}
@@ -63,12 +53,12 @@ OMDICTS['interval1']['integer_interval'] = Interval
 
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
-OMDICTS['list1']['list'] = oms_list1_list
+OMDICTS['list1']['list'] = List 
 
 # linalg2     http://www.openmath.org/cd/linalg2.xhtml
 OMDICTS['linalg2'] = {}
-OMDICTS['linalg2']['matrix'] = oms_list1_list
-OMDICTS['linalg2']['matrixrow'] = oms_list1_list
+OMDICTS['linalg2']['matrix'] = List
+OMDICTS['linalg2']['matrixrow'] = List 
 
 
 ###############################################################

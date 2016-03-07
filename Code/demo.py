@@ -1,9 +1,10 @@
 import openmath
 from openmath import *
 from fractions import Fraction
-from complex import *
-from rational import *
-from interval import *
+from Complex import Complex
+from Rational import Rational
+from List import List
+from Interval import Interval
 
 
 s = '<OMOBJ> <OMI>42</OMI> </OMOBJ>'
@@ -39,20 +40,20 @@ om_print(False)
 om_string(42)
 om_print(42)
 
-om_string([1,2,3])
-om_print([1,2,3])
+om_string(List([1,2,3]))
+om_print(List([1,2,3]))
 
-om_print([1,2,[3,4,5]])
-om_string([1,2,[3,4,5]])
+om_print(List([1,2,List([3,4,5])]))
+om_string(List([1,2,List([3,4,5])]))
 
 # tests
 a = 42
 a == parse_om_string(om_string(a))
 
-a = [1,2,3]
+a = List([1,2,3])
 a == parse_om_string(om_string(a))
 
-a = [1,2,[3,4,5]]
+a = List([1,2,List([3,4,5])])
 a == parse_om_string(om_string(a))
 
 
