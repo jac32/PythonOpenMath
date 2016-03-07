@@ -8,25 +8,37 @@ class Matrix(object):
                 constructor function for a matrix (list of rows)
                 """
                 self.rows = rows
-                self.oms_linalg2_matrix(rows)
+                valid = self.oms_linalg2_matrix(rows)
+                if isinstance(valid,int):
+                    raise RowLengthError(valid)
 
         def __str__(self):
                 """
                 function which prints out a matrix
                 """
-                for i in self.rows:
-                        print(i)
+                str_ = ""
+                for row in self.rows:
+                        for element in row.elements:
+                                str_ += str(element)
+                                str_ += ","
+                        str_+="\n"
+                return str_
 
         def oms_linalg2_matrix(self,rows):
-                """ Parses a matrix, which consists
-                    of a list of OpenMath matrix rows.
+                """ Parses a matrix, which consists of a list of OpenMath matrix rows.
 
-                Simply returns the list of elements unaltered.
+                Simply returns the list of elements unaltered, provided
+                all rows are of the same length.
 
                 :param elements: A list of matrix rows
                 :returns: The list of rows
                 :rtype: list
                 """
+                previouslen = len(rows[0].elements)
+                for row in rows:
+                        if previouslen != len(row.elements):
+                                return previouslen
+                        previouslen = len(row.elements)
                 return rows
 
 
@@ -46,7 +58,11 @@ class MatrixRow(object):
                 """
                 Prints out a matrix row
                 """
-                print(self.elements)
+                str_ = ""
+                for i in self.elements:
+                        str_+= str(i)
+                        str_ += ", "
+                return str_
 
         def oms_linalg2_matrixrow(self,elements):
                 """ Parses a row in a matrix, which consists
@@ -60,3 +76,14 @@ class MatrixRow(object):
                 """
                 return elements
 
+
+class RowLengthError(Exception):
+    '''
+    Exception detailing that a matrix has an inconsistency in its rows' length
+    '''
+    def __init__(self,value):
+        self.value = value
+    
+    def __str__(self):
+        return repr(self.value)
+    
