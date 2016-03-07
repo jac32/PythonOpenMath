@@ -1,6 +1,10 @@
 import openmath
 from openmath import *
 from fractions import Fraction
+from complex import *
+from rational import *
+from interval import *
+
 
 s = '<OMOBJ> <OMI>42</OMI> </OMOBJ>'
 parse_om_string(s)
@@ -22,15 +26,15 @@ parse_om_file('tst/bool.xml')
 parse_om_file('tst/rational.xml')
 parse_om_file('tst/complex_simp.xml')
 parse_om_file('tst/range.xml')
-parse_om_file('tst/matrix.xml')
-om_print(parse_om_file('tst/matrix.xml'))
+#parse_om_file('tst/matrix.xml')
+#om_print(parse_om_file('tst/matrix.xml'))
 
-om_print(range(-20,20))
+om_print(Interval([-20,20]))
 om_print(parse_om_string('<OMOBJ><OMA><OMS cd="interval1" name="integer_interval" /><OMI>-20</OMI><OMI>20</OMI></OMA></OMOBJ>'))
 
 
-om_print(1+2j)
-om_print(Fraction(3,2))
+om_print(Complex([1,2]))
+om_print(Rational([3,2]))
 om_print(False)
 om_string(42)
 om_print(42)

@@ -6,11 +6,15 @@ into OpenMath XML format.
 
 """
 from fractions import Fraction
+from complex import *
+from rational import *
+from interval import *
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
 
 import xml.etree.ElementTree as ET
+from interval import Interval
 Element = ET.Element
 SUBELEMENT = ET.SubElement
 
@@ -151,11 +155,11 @@ def om_complex_cartesian(complex_num):
     oms = Element("OMS")
     oms.attrib = {'cd' : 'complex1', 'name': 'complex_cartesian'}
     omelt.insert(1, oms)
-    omelt.insert(2, om_element(Fraction(complex_num.real)))
-    omelt.insert(3, om_element(Fraction(complex_num.imag)))
+    omelt.insert(2, om_element(complex_num.real))
+    omelt.insert(3, om_element(complex_num.imag))
     return omelt
 
-def om_integer_interval(limits):
+def om_integer_interval(interval):
     """ Integer interval encoding method.
 
     Creates a new OMA element and encodes the range to be
@@ -168,8 +172,8 @@ def om_integer_interval(limits):
     oms = Element("OMS")
     oms.attrib = {'cd' : 'interval1', 'name': 'integer_interval'}
     omelt.insert(1, oms)
-    omelt.insert(2, om_element(limits[0]))
-    omelt.insert(3, om_element(limits[-1]+1))
+    omelt.insert(2, om_element(interval.lower))
+    omelt.insert(3, om_element(interval.upper))
     return omelt
 ################################################################
 #
@@ -189,15 +193,15 @@ BROKEN: isinstance returns false
     """
     if isinstance(element, int):
         return om_int(element)
-    elif isinstance(element, Fraction):
+    elif isinstance(element, Rational):
         return om_rational(element)
     elif isinstance(element, list):
         return om_list_element(element)
     elif isinstance(element, bool):
         return om_bool(element)
-    elif isinstance(element, complex):
+    elif isinstance(element, Complex):
         return om_complex_cartesian(element)
-    elif isinstance(element, range):
+    elif isinstance(element, Interval):
         return om_integer_interval(element)
 
 
@@ -229,7 +233,7 @@ def om_object(object_):
     Creates the OMOBJ element and inserts the appropriate elementsq
     within.
 
-    :param x: The object to be converted to its OpenMath XML representation
+    :param object_: The object to be converted to its OpenMath XML representation
     :returns: XML tree representation of the OpenMath XML object
     """
     omobj = Element("OMOBJ")

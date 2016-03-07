@@ -1,3 +1,7 @@
+from complex import *
+from rational import *
+from interval import *
+
 """ Parsing OpenMath Objects
 =============================
 
@@ -23,45 +27,6 @@ def parse_omi(node):
     """
     return int(node.text)
 
-def oms_nums1_rational(elements):
-    """ Parses an OpenMath ratio node.
-
-    Translates between the OpenMath XML representation of a rational
-    number, and the tuple representation used within this library.
-
-    :param elements: A list containing the numerator and denominator
-    :returns: A pair representing the ratio
-    :rtype: tuple
-    """
-    if len(elements) == 2:
-        return (elements[0], elements[1])
-
-def oms_complex1_complex_cartesian(elements):
-    """ Parses an OpenMath ratio node
-
-    Translates between the OpenMath XML representation of a complex
-    cartisian number, and a python complex number.
-
-    :param elements: A list containing the real and imaginary parts
-    :returns: The complex number represented by the node
-    :rtype: complex
-    """
-    if len(elements) == 2:
-        return complex(elements[0], elements[1])
-
-def oms_interval1_integer_interval(elements):
-    """ Parses an OpenMath integer interval node
-
-    Translates between the OpenMath XML representation of an
-    integer interval, and a python range object
-
-    :param elements: A list containing the inclusive limits for the range
-    :returns: The range of elements represented by the node
-    :rtype: range
-    """
-    if len(elements) == 2:
-        return range(elements[0], elements[1])
-
 def oms_list1_list(elements):
     """ Parses a list of OpenMath nodes.
 
@@ -81,21 +46,20 @@ OMDICTS = {}
 
 # logic1	http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
-OMDICTS['logic1']['true'] = lambda x: True
-OMDICTS['logic1']['false'] = lambda x: False
+OMDICTS['logic1']['true'] = True
+OMDICTS['logic1']['false'] = False
 
 # nums1    http://www.openmath.org/cd/nums1.xhtml1
 OMDICTS['nums1'] = {}
-OMDICTS['nums1']['rational'] = oms_nums1_rational
+OMDICTS['nums1']['rational'] = Rational
 
 # complex1    http://www.openmath.org/cd/complex1.xhtml
 OMDICTS['complex1'] = {}
-OMDICTS['complex1']['complex_cartesian'] = oms_complex1_complex_cartesian
+OMDICTS['complex1']['complex_cartesian'] = Complex
 
 # interval1   http://www.openmath.org/cd/interval1.xhtml
 OMDICTS['interval1'] = {}
-OMDICTS['interval1']['integer_interval'] = oms_interval1_integer_interval
-
+OMDICTS['interval1']['integer_interval'] = Interval
 
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
