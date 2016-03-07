@@ -7,6 +7,7 @@ from the parsed XML tree.
 """
 from Matrix import Matrix,MatrixRow
 from applications import *
+from fact import *
 
 ################################################################
 #
@@ -16,8 +17,8 @@ OMDICTS = {}
 
 # logic1	http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
-OMDICTS['logic1']['true'] = lambda x: True
-OMDICTS['logic1']['false'] = lambda x: False
+OMDICTS['logic1']['true'] = True
+OMDICTS['logic1']['false'] = False
 
 # nums1    http://www.openmath.org/cd/nums1.xhtml1
 OMDICTS['nums1'] = {}
@@ -33,7 +34,7 @@ OMDICTS['interval1']['integer_interval'] = oms_interval1_integer_interval
 
 #integer1     http://www.openmath.org/cd/integer1.xhtml
 OMDICTS['integer1'] = {}
-OMDICTS['integer1']['factorial'] = oms_interger1_factorial
+OMDICTS['integer1']['factorial'] = Factorial
 
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
