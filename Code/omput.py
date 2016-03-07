@@ -10,6 +10,7 @@ from Complex import Complex
 from Rational import Rational
 from List import List
 from Interval import Interval
+from Matrix import *
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
@@ -96,7 +97,7 @@ def om_list(list_):
     oms.attrib = {'cd' : 'list1', 'name' : 'list'}
     omelt.insert(1, oms)
     index = 1
-    for item in list_:
+    for item in list_.elements:
         index = index + 1
         omelt.insert(index, om_element(item))
     return omelt
@@ -115,7 +116,7 @@ def om_matrix(matrix):
     oms.attrib = {'cd' : 'linalg2', 'name' : 'matrix'}
     omelt.insert(1, oms)
     index = 1
-    for row in matrix:
+    for row in matrix.rows:
         index += 1
         row_element = om_matrix_row(row)
         omelt.insert(index, row_element)
@@ -218,7 +219,11 @@ def om_element(element):
     elif isinstance(element, Rational):
         return om_rational(element)
     elif isinstance(element, List):
-        return om_list_element(element)
+        return om_list(element)
+    elif isinstance(element, Matrix):
+        return om_matrix(element)
+    elif isinstance(element,MatrixRow):
+        return om_matrix_row(element)
     elif isinstance(element, bool):
         return om_bool(element)
     elif isinstance(element, Complex):

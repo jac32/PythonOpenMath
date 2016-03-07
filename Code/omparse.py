@@ -10,7 +10,7 @@ from Complex import Complex
 from Rational import Rational
 from List import List
 from Interval import Interval
-
+from Matrix import *
 
 ################################################################
 #
@@ -69,8 +69,8 @@ OMDICTS['list1']['list'] = List
 
 # linalg2     http://www.openmath.org/cd/linalg2.xhtml
 OMDICTS['linalg2'] = {}
-OMDICTS['linalg2']['matrix'] = List
-OMDICTS['linalg2']['matrixrow'] = List 
+OMDICTS['linalg2']['matrix'] = Matrix
+OMDICTS['linalg2']['matrixrow'] = MatrixRow 
 
 
 ###############################################################
