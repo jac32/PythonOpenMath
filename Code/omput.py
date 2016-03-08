@@ -7,6 +7,7 @@ into OpenMath XML format.
 """
 from fractions import Fraction
 from matrix import Matrix,MatrixRow
+from factorial import Factorial
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
@@ -229,8 +230,8 @@ def om_element(element):
         return om_int(element)
     elif isinstance(element,float):
         return om_float(element)
-    #elif isinstance(element, Factorial):
-     #   return om_factorial(element)
+    elif isinstance(element, Factorial):
+        return om_factorial(element)
     elif isinstance(element, Fraction):
         return om_rational(element)
     elif isinstance(element, list):
