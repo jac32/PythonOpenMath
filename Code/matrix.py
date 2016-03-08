@@ -7,7 +7,12 @@ class Matrix(object):
         """
         constructor function for a matrix (list of rows)
         """
-        self.rows = rows
+        previouslen = len(rows[0].elements)
+        for row in rows:
+            if previouslen != len(row.elements):
+                    raise RowLengthError(previouslen)
+            previouslen = len(row.elements)
+        self.rows = list(rows)
 
     def __str__(self):
         """
@@ -38,7 +43,7 @@ class MatrixRow(object):
         """
         instantiates a matrix row with a list of elements
         """
-        self.elements = elements
+        self.elements = list(elements)
 
     def __str__(self):
         """
@@ -49,39 +54,6 @@ class MatrixRow(object):
                 str_+= str(i)
                 str_ += ", "
         return str_
-    
-
-def oms_linalg2_matrixrow(elements):
-    """ Parses a row in a matrix, which consists
-        of a list of OpenMath nodes.
-
-    Simply returns the list of elements unaltered.
-
-    :param elements: A list of elements
-    :returns: The list of elements
-    :rtype: list
-    """
-    return MatrixRow(*elements)
-
-
-
-def oms_linalg2_matrix(rows):
-    """ Parses a matrix, which consists of a list of OpenMath matrix rows.
-
-    Simply returns the list of elements unaltered, provided
-    all rows are of the same length.
-
-    :param rows: A list of matrix rows
-    :returns: The list of rows
-    :rtype: list
-    """
-    previouslen = len(rows[0].elements)
-    for row in rows:
-            if previouslen != len(row.elements):
-                    raise RowLengthError(previouslen)
-            previouslen = len(row.elements)
-    return Matrix(*rows)
-
 
 class RowLengthError(Exception):
     '''

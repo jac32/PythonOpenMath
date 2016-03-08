@@ -20,15 +20,3 @@ class Factorial(object):
         """    
         return self.num + "!"
     
-    
-def oms_integer1_factorial(num):
-    """ Parses a basic OpenMath factorial node.
-
-    Translates between the OpenMath XML representation
-    of an factorial, and a class representing factorials
-
-    :param num: the list containing the number
-    :returns: an instance of the Factorial class
-    :rtype: Factorial
-    """
-    return Factorial(num[0])

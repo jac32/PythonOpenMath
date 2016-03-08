@@ -5,7 +5,6 @@ Created on 7/3/2016
 #
 # Basic OpenMath elements
 #
-from math import factorial
 from fractions import Fraction
 
 def parse_omf(node):
@@ -32,7 +31,7 @@ def parse_omi(node):
     """
     return int(node.text)
 
-def oms_list1_list(elements):
+def oms_list1_list(*elements):
     """ Parses a list of OpenMath nodes.
 
     Simply returns the list of elements unaltered.
@@ -41,10 +40,10 @@ def oms_list1_list(elements):
     :returns: The list of elements
     :rtype: list
     """
-    return elements
+    return list(elements)
 
 
-def oms_complex1_complex_cartesian(elements):
+def oms_complex1_complex_cartesian(*elements):
     """ Parses an OpenMath ratio node
 
     Translates between the OpenMath XML representation of a complex
@@ -58,7 +57,7 @@ def oms_complex1_complex_cartesian(elements):
     imag = elements[1]
     return complex(real, imag)
 
-def oms_nums1_rational(elements):
+def oms_nums1_rational(*elements):
     """ Parses an OpenMath ratio node.
 
     Translates between the OpenMath XML representation of a rational
@@ -72,7 +71,7 @@ def oms_nums1_rational(elements):
     denominator = elements[1]
     return Fraction(numerator,denominator)
 
-def oms_interval1_integer_interval(elements):
+def oms_interval1_integer_interval(*elements):
     """ Parses an OpenMath integer interval node
 
     Translates between the OpenMath XML representation of an

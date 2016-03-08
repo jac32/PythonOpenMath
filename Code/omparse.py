@@ -35,7 +35,7 @@ OMDICTS['interval1']['integer_interval'] = oms_interval1_integer_interval
 
 #integer1     http://www.openmath.org/cd/integer1.xhtml
 OMDICTS['integer1'] = {}
-OMDICTS['integer1']['factorial'] = oms_integer1_factorial
+OMDICTS['integer1']['factorial'] = Factorial
 
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
@@ -43,15 +43,15 @@ OMDICTS['list1']['list'] = oms_list1_list
 
 #arith1 http://www.openmath.org/cd/arith1.xhtml
 OMDICTS['arith1'] = {}
-OMDICTS['arith1']['times'] = oms_arith1_times
-OMDICTS['arith1']['divide'] = oms_arith1_divide
-OMDICTS['arith1']['plus'] = oms_arith1_plus
-OMDICTS['arith1']['minus'] = oms_arith1_minus
+OMDICTS['arith1']['times'] = Arith1Times
+OMDICTS['arith1']['divide'] = Arith1Divide
+OMDICTS['arith1']['plus'] = Arith1Plus
+OMDICTS['arith1']['minus'] = Arith1Minus
 
 # linalg2     http://www.openmath.org/cd/linalg2.xhtml
 OMDICTS['linalg2'] = {}
-OMDICTS['linalg2']['matrix'] = oms_linalg2_matrix
-OMDICTS['linalg2']['matrixrow'] = oms_linalg2_matrixrow 
+OMDICTS['linalg2']['matrix'] = Matrix
+OMDICTS['linalg2']['matrixrow'] = MatrixRow 
 
 
 ###############################################################
@@ -81,7 +81,7 @@ def parse_oma(node):
     elts = []
     for child in node.findall("*"):
         elts.append(parse_om_element(child))
-    return elts[0](elts[1:len(elts)])
+    return elts[0](*elts[1:len(elts)])
 
 PARSE_OM_ELEMENT_HANDLER = {'OMI' : parse_omi, 'OMS' : parse_oms, 'OMA' : parse_oma, 'OMF': parse_omf}
 
