@@ -5,7 +5,7 @@ This module provides a number of functions for decoding "objects"
 from the parsed XML tree.
 
 """
-from Matrix import *
+from matrix import *
 from applications import *
 from fact import *
 
