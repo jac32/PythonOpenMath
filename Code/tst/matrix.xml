@@ -2,7 +2,7 @@
 	<OMA>
 		<OMS cd="linalg2" name="matrix"/>
 		<OMA>
-			<OMS cd="linalg2" name="matrixrow"/>
+			<OMS cd="linalg2" name="matrixrow"></OMS>
 			<OMI>1</OMI>
 			<OMI>2</OMI>
 			<OMI>3</OMI>

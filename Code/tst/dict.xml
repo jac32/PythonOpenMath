@@ -1,0 +1,20 @@
+<OMOBJ>
+        <OMA>
+                <OMS cd="dict1" name="dict"/> 
+                <OMA>
+                	<OMS cd="dict1" name="key_val"></OMS> 
+                	<OMSTR>key1</OMSTR>
+                	<OMI>1</OMI>
+                </OMA>
+                <OMA>
+                	<OMS cd="dict1" name="key_val"></OMS> 
+                	<OMSTR>key2</OMSTR>
+                	<OMI>2</OMI>
+                </OMA>
+                <OMA>
+                	<OMS cd="dict1" name="key_val"></OMS> 
+                	<OMSTR>key3</OMSTR>
+                	<OMI>3</OMI>
+                </OMA>
+        </OMA>
+</OMOBJ>

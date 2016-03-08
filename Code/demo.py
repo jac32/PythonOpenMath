@@ -27,6 +27,8 @@ parse_om_file('tst/complex_simp.xml')
 parse_om_file('tst/range.xml')
 parse_om_file('tst/float.xml')
 parse_om_file('tst/factorial.xml')
+parse_om_file('tst/string.xml')
+parse_om_file('tst/dict.xml')
 a= parse_om_file('tst/matrix.xml')
 om_print(a)
 
