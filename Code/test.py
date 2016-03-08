@@ -1,95 +1,88 @@
-class Matrix(object):
-    '''
-    class describing a matrix
-    '''
-    
-    def __init__(self, *rows):
-        """
-        constructor function for a matrix (list of rows)
-        """
-        self.rows = rows
+""" Parsing Unit Tests
+======================
 
-    def __str__(self):
-        """
-        function which prints out a matrix
-        """
-        str_ = ""
-        for row in self.rows:
-                for element in row.elements:
-                        str_ += str(element)
-                        str_ += ","
-                str_+="\n"
-        return str_
+Test cases for the parsing of OpenMath XML Strings
+"""
 
-    def flatten(self):
-        """
-        Flattens a matrix by retrieving the lists of elements
-        from each row
-        """
-        return [element for row in self.rows for element in row.elements]
+import unittest
+from fractions import Fraction
+from fact import Factorial
+from matrix import Matrix, MatrixRow
+from openmath import parse_om_file, om_string
+
+
+class Decoding(unittest.TestCase):
+    """ Testing of Decoding/Parsing Methods"""
+
+    def test_encode_bool_true(self):
+        print('Decoding:test_bool_true')
+        self.assertTrue(parse_om_file('tst/true.xml'))
         
+    def test_encode_bool_false(self):
+        print('Decoding:test_bool_false')
+        self.assertTrue(not parse_om_file('tst/false.xml'))
 
-class MatrixRow(object):
-    '''
-    class describing a matrix row
-    '''
+    def test_encode_int_42(self):
+        print('Decoding:test_int_42')
+        self.assertEqual(42, parse_om_file('tst/integer.xml'))
 
-    def __init__(self, *elements):
-        """
-        instantiates a matrix row with a list of elements
-        """
-        self.elements = elements
+    def test_encode_list_simple(self):
+        print('Decoding:test_list_simple')
+        test_list = [41, True, 43]
+        self.assertListEqual(test_list, parse_om_file('tst/list.xml'))
 
-    def __str__(self):
-        """
-        Prints out a matrix row
-        """
-        str_ = ""
-        for i in self.elements:
-                str_+= str(i)
-                str_ += ", "
-        return str_
-    
+    def test_encode_list_nested(self):
+        print('Decoding:test_list_nested')
+        test_list = [1, 2, [3, 4, 5]]
+        self.assertListEqual(test_list, parse_om_file('tst/listnested.xml'))
 
-def oms_linalg2_matrixrow(elements):
-    """ Parses a row in a matrix, which consists
-        of a list of OpenMath nodes.
+    def test_encode_rational_list_1_2(self):
+        print('Decoding:test_rational_1_2')
+        test_rational = [1, Fraction(1,2)]
+        self.assertEqual(test_rational, parse_om_file('tst/rational.xml'))
 
-    Simply returns the list of elements unaltered.
+    def test_encode_complex_simp(self):
+        print('Decoding:test_complex_1_2')
+        test_complex = 2 + 3j
+        self.assertEqual(test_complex, parse_om_file('tst/complexsimp.xml'))
 
-    :param elements: A list of elements
-    :returns: The list of elements
-    :rtype: list
-    """
-    return MatrixRow(*elements)
+    def test_encode_complex_ratios(self):
+        print('Decoding:test_complex_ratios')
+        test_complex = Fraction(2,3) + Fraction(5,4) * 1j
+        self.assertEqual(test_complex, parse_om_file('tst/complex.xml'))
+
+    def test_encode_range_neg_to_pos_10(self):
+        print('Decoding:test_range_neg_to_pos_10')
+        test_range = range(-10,10)
+        self.assertEqual(test_range, parse_om_file('tst/range.xml'))
+
+    def test_encode_float_list(self):
+        print('Decoding:test_float_list')
+        test_float_list = [0, 1.0, 0.5, -1, 19487171.0, 5.1315811823070673e-08, -19487171.0, -5.1315811823070673e-08]
+        self.assertListEqual(test_float_list, parse_om_file('tst/float.xml'))
+
+    def test_encode_factorial(self):
+        print('Decoding:test_factorial')
+        test_factorial = Factorial(10)
+        self.assertEqual(test_factorial.num, parse_om_file('tst/Factorial.xml').num)
+
+    def test_encode_matrix_3x3(self):
+        print('Decoding:test_matrix_3x3')
+        test_matrix = Matrix(MatrixRow(1,2,3),
+                              MatrixRow(42, 5, 6),
+                              MatrixRow(0, -1, -100))
+        
+        self.assertListEqual(test_matrix.flatten(),
+                            parse_om_file('tst/Matrix.xml').flatten())
 
 
+class Decoding(unittest.TestCase):
+    """ Testing of Decoding/Parsing Methods"""
 
-def oms_linalg2_matrix(rows):
-    """ Parses a matrix, which consists of a list of OpenMath matrix rows.
+    def test_decode_int_42(self):
+        print('Encoding:test_decode_int_42')
+        test_result = '<OMOBJ> <OMI>42</OMI> </OMOBJ>'
+        self.assertEqual(test_result, om_string(42))
 
-    Simply returns the list of elements unaltered, provided
-    all rows are of the same length.
-
-    :param rows: A list of matrix rows
-    :returns: The list of rows
-    :rtype: list
-    """
-    previouslen = len(rows[0].elements)
-    for row in rows:
-            if previouslen != len(row.elements):
-                    raise RowLengthError(previouslen)
-            previouslen = len(row.elements)
-    return Matrix(*rows)
-
-
-class RowLengthError(Exception):
-    '''
-    Exception detailing that a matrix has an inconsistency in its rows' length
-    '''
-    def __init__(self,value):
-        self.value = value
-    
-    def __str__(self):
-        return repr(self.value)
-    
+if __name__ == '__main__':
+    unittest.main()
