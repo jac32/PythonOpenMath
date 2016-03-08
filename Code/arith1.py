@@ -30,7 +30,7 @@ class Arith1Times:
             if isinstance(self.b, (int, long, float, complex)):
                 return (self.a * self.b)
             else:
-                return (self.a * eval(source))
+                return (self.a * eval(self.b))
         elif isinstance(self.b, (int, long, float, complex)):
             return (eval(self.a ) * self.b)
         else :
@@ -65,7 +65,7 @@ class Arith1Divide:
             if isinstance(self.b, (int, long, float, complex)):
                 return (self.a / self.b)
             else:
-                return (self.a / eval(source))
+                return (self.a / eval(self.b))
         elif isinstance(self.b, (int, long, float, complex)):
             return (eval(self.a ) / self.b)
         else :
@@ -98,7 +98,7 @@ class Arith1Plus:
             if isinstance(self.b, (int, long, float, complex)):
                 return (self.a + self.b)
             else:
-                return (self.a + eval(source))
+                return (self.a + eval(self.b))
         elif isinstance(self.b, (int, long, float, complex)):
             return (eval(self.a ) + self.b)
         else :
@@ -131,7 +131,7 @@ class Arith1Minus:
             if isinstance(self.b, (int, long, float, complex)):
                 return (self.a - self.b)
             else:
-                return (self.a - eval(source))
+                return (self.a - eval(self.b))
         elif isinstance(self.b, (int, long, float, complex)):
             return (eval(self.a ) - self.b)
         else :
@@ -164,7 +164,7 @@ class Arith1Power:
             if isinstance(self.b, (int, long, float, complex)):
                 return pow(self.a, self.b)
             else:
-                return pow(self.a, eval(source))
+                return pow(self.a, eval(self.b))
         elif isinstance(self.b, (int, long, float, complex)):
             return pow(eval(self.a ), self.b)
         else :
@@ -237,7 +237,7 @@ class Arith1Root:
             if isinstance(self.b, (int, long, float, complex)):
                 return iroot(self.a, self.b)
             else:
-                return iroot(self.a, eval(source))
+                return iroot(self.a, eval(self.b))
         elif isinstance(self.b, (int, long, float, complex)):
             return iroot(eval(self.a ), self.b)
         else :
