@@ -72,5 +72,46 @@ def om_print(object_):
     """
     ET.dump(om_object(object_))
 
+
+def om_pretty_print(node, level=0, indent='\t'):
+    """ Pretty prints the string representation of the object
+    
+    Creates a formatted string containing the OpenMath XML
+    representation of the given object and outputs it to 
+    std out
+
+    :params x: The object to be encoded to the string
+    """
+    print('')
+    print_indent(level, indent=indent)
+    print('<' + node.tag + attrib_string(node) , end='> ')
+
+    children = node.findall('*')
+    for child in children:
+        om_pretty_print(child, level+1, indent=indent)
+    
+    if children == []:
+        if node.text != None: print(node.text, end=' ')
+    elif node.text == None :
+        print()
+        print_indent(level, indent=indent)
+        
+    print('</' + node.tag, end='>')
+
+
+    
+def print_indent(level, indent='\t'):
+    for i in range(0, level):
+        print(indent, end='')
+
+def attrib_string(node):
+    str_ = ''
+    for attrib in node.attrib:
+        str_ = ' '
+        str_ += attrib
+        str_ += '='
+        str_ += node.attrib[attrib]
+    return str_
 ################################################################
+
 
