@@ -7,7 +7,7 @@ from the parsed XML tree.
 """
 from matrix import *
 from applications import *
-from fact import *
+from factorial import *
 
 ################################################################
 #

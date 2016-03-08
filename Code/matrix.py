@@ -6,7 +6,7 @@ Test cases for the parsing of OpenMath XML Strings
 
 import unittest
 from fractions import Fraction
-from fact import Factorial
+from factorial import Factorial
 from matrix import Matrix, MatrixRow
 from openmath import parse_om_file, om_string
 
