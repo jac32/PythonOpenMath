@@ -6,7 +6,7 @@ into OpenMath XML format.
 
 """
 from fractions import Fraction
-from Matrix import Matrix,MatrixRow
+from matrix import Matrix,MatrixRow
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
