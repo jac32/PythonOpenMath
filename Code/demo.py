@@ -11,7 +11,7 @@ parse_om_string(s)
 s = '<OMOBJ> <OMA> <OMS cd="list1" name="list"/> <OMI>41</OMI> <OMI>42</OMI> <OMI>43</OMI> <OMA> <OMS cd="list1" name="list"/> <OMI>41</OMI> <OMI>42</OMI> <OMI>43</OMI> </OMA> </OMA> </OMOBJ>'
 parse_om_string(s)
 
-s= '<OMOBJ> <OMA> <OMS cd="logic1" name="false"/> </OMA> </OMOBJ>'
+s= '<OMOBJ><OMS cd="logic1" name="false"/></OMOBJ>'
 parse_om_string(s)
 
 a = '<OMOBJ> <OMF dec=\"2.3\"></OMF> </OMOBJ>'
@@ -26,7 +26,7 @@ parse_om_file('tst/rational.xml')
 parse_om_file('tst/complex_simp.xml')
 parse_om_file('tst/range.xml')
 parse_om_file('tst/float.xml')
-#parse_om_file('tst/factorial.xml')
+parse_om_file('tst/factorial.xml')
 a= parse_om_file('tst/matrix.xml')
 om_print(a)
 
