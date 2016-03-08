@@ -35,8 +35,6 @@ class Arith1Times:
             return (eval(self.a ) * self.b)
         else :
             return (eval(self.a) * eval(self.b))
-   
-            
             
 class Arith1Divide:
     """
