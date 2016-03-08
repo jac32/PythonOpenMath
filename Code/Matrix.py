@@ -3,7 +3,7 @@ class Matrix(object):
     class describing a matrix
     '''
     
-    def __init__(self,rows):
+    def __init__(self, *rows):
         """
         constructor function for a matrix (list of rows)
         """
@@ -34,7 +34,7 @@ class MatrixRow(object):
     class describing a matrix row
     '''
 
-    def __init__(self,elements):
+    def __init__(self, *elements):
         """
         instantiates a matrix row with a list of elements
         """
@@ -61,7 +61,7 @@ def oms_linalg2_matrixrow(elements):
     :returns: The list of elements
     :rtype: list
     """
-    return MatrixRow(elements)
+    return MatrixRow(*elements)
 
 
 
@@ -80,7 +80,7 @@ def oms_linalg2_matrix(rows):
             if previouslen != len(row.elements):
                     raise RowLengthError(previouslen)
             previouslen = len(row.elements)
-    return Matrix(rows)
+    return Matrix(*rows)
 
 
 class RowLengthError(Exception):
