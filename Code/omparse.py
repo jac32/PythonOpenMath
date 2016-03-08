@@ -87,7 +87,7 @@ def parse_oma(node):
         elts.append(parse_om_element(child))
     return elts[0](*elts[1:len(elts)])
 
-PARSE_OM_ELEMENT_HANDLER = {'OMI' : parse_omi, 'OMS' : parse_oms, 'OMA' : parse_oma, 'OMF': parse_omf}
+PARSE_OM_ELEMENT_HANDLER = {'OMI' : parse_omi, 'OMS' : parse_oms, 'OMA' : parse_oma, 'OMF': parse_omf, 'OMSTR': parse_omstr}
 
 def parse_om_element(obj):
     """ Appropriately parses a OpenMath XML element

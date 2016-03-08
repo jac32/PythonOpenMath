@@ -36,6 +36,25 @@ def om_int(int_):
     return omelt
 
 
+#################################################################
+#
+# OpenMath string (OMSTR)
+#
+def om_str(str_):
+    """ Str element encoding method.
+
+    Creates a new OMSTR element and puts the string representation of
+    the str within the node.
+
+    :param str_: The integer to be represented by the OMSTR element
+    :returns: The OMSTR element representing the given integer
+    """
+    omelt = Element("OMSTR")
+    omelt.text = str_
+    print(omelt.text)
+    return omelt
+
+
 ################################################################
 #
 # OpenMath float (OMF)

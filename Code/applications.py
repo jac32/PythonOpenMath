@@ -31,6 +31,18 @@ def parse_omi(node):
     """
     return int(node.text)
 
+def parse_omstr(node):
+    """ Parses a basic OpenMath string node.
+
+    Translates between the OpenMath XML representation
+    of an string, i.e. an OMI node, and a Python string.
+
+    :param node: The OMI XML node object.
+    :returns: The string value of the node.
+    :rtype: string
+    """
+    return node.text
+
 def oms_list1_list(*elements):
     """ Parses a list of OpenMath nodes.
 
