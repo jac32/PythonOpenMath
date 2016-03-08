@@ -9,6 +9,7 @@ from matrix import *
 from applications import *
 from factorial import *
 from arith1 import *
+from dictionary import *
 
 ################################################################
 #
@@ -40,6 +41,10 @@ OMDICTS['integer1']['factorial'] = Factorial
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
 OMDICTS['list1']['list'] = oms_list1_list
+
+OMDICTS['dict1'] = {}
+OMDICTS['dict1']['dict'] = Dictionary
+OMDICTS['dict1']['key_val'] = KeyValuePair
 
 #arith1 http://www.openmath.org/cd/arith1.xhtml
 OMDICTS['arith1'] = {}
