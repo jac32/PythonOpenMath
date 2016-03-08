@@ -47,6 +47,10 @@ OMDICTS['arith1']['times'] = Arith1Times
 OMDICTS['arith1']['divide'] = Arith1Divide
 OMDICTS['arith1']['plus'] = Arith1Plus
 OMDICTS['arith1']['minus'] = Arith1Minus
+OMDICTS['arith1']['power'] = Arith1Power
+OMDICTS['arith1']['abs'] = Arith1Abs
+OMDICTS['arith1']['root'] = Arith1Root
+
 
 # linalg2     http://www.openmath.org/cd/linalg2.xhtml
 OMDICTS['linalg2'] = {}

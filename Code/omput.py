@@ -8,7 +8,7 @@ into OpenMath XML format.
 from fractions import Fraction
 from matrix import Matrix,MatrixRow
 from factorial import Factorial
-from arith1 import Arith1Divide, Arith1Minus, Arith1Plus, Arith1Times
+from arith1 import Arith1Divide, Arith1Minus, Arith1Plus, Arith1Times, Arith1Power, Arith1Abs, Arith1Root
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
@@ -167,6 +167,56 @@ def om_arith1_divide(div):
     omelt.insert(2, om_element(div.a))
     omelt.insert(3, om_element(div.b))
     return omelt
+
+def om_arith1_power(pow):
+    """ Power arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'power'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(pow.a))
+    omelt.insert(3, om_element(pow.b))
+    return omelt
+
+def om_arith1_abs(abs):
+    """ Abs arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'abs'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(abs.a))
+    return omelt
+
+def om_arith1_root(root):
+    """ Root arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'root'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(root.a))
+    omelt.insert(3, om_element(root.b))
+    return omelt
 ################################################################
 #
 # List (list1.list)
@@ -312,6 +362,12 @@ def om_element(element):
         return om_arith1_times(element)
     elif isinstance(element, Arith1Divide):
         return om_arith1_divide(element)
+    elif isinstance(element,Arith1Power):
+        return om_arith1_power(element)
+    elif isinstance(element,Arith1Abs):
+        return om_arith1_abs(element)
+    elif isinstance(element,Arith1Root):
+        return om_arith1_root(element)
     elif isinstance(element, Fraction):
         return om_rational(element)
     elif isinstance(element, list):

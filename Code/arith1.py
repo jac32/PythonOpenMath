@@ -18,7 +18,7 @@ class Arith1Times:
         """
         Function for printing out a times node
         """
-        print(self.a + " x " + self.b)
+        print(self.a + " * " + self.b)
             
 class Arith1Divide:
     """
@@ -54,7 +54,7 @@ class Arith1Plus:
         """
         Function for printing out a plus node
         """
-        print(self.a + " +" + self.b)
+        print(self.a + " + " + self.b)
    
 class Arith1Minus:
     """
@@ -72,5 +72,59 @@ class Arith1Minus:
         """
         Function for printing out a minus node
         """
-        print(self.a + " +" + self.b)
+        print(self.a + " - " + self.b)
+                 
+class Arith1Power:
+    """
+    Class describing an OpenMath power node
+    """
+    def __init__(self,*nums):
+        """
+        Constructor for an arith1 power instance
+        :param nums: the tuple storing the left and right operands
+        """
+        self.a = nums[0]
+        self.b = nums[1]
+             
+    def __str__(self):
+        """
+        Function for printing out a power node
+        """
+        print(self.a + " ^ " + self.b)
+
+class Arith1Abs:
+    """
+    Class describing an OpenMath abs node
+    """
+    def __init__(self,*num):
+        """
+        Constructor for an arith1 abs instance
+        :param num: stores an operand
+        """
+        self.a = nums[0]
+             
+    def __str__(self):
+        """
+        Function for printing out a abs node
+        """
+        print("|" + self.a + "|")
+                 
+class Arith1Root:
+    """
+    Class describing an OpenMath root node
+    """
+    def __init__(self,*num):
+        """
+        Constructor for an arith1 root instance
+        :param num: the tuple storing the left and right operands
+        """
+        self.a = nums[0]
+        self.b = nums[1]
+             
+    def __str__(self):
+        """
+        Function for printing out a abs node
+        """
+        print("root (" + self.a + ", " + self.b + ")")
+                 
                  
