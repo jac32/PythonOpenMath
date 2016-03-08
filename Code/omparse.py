@@ -8,6 +8,7 @@ from the parsed XML tree.
 from matrix import *
 from applications import *
 from factorial import *
+from arith1 import *
 
 ################################################################
 #
@@ -39,6 +40,13 @@ OMDICTS['integer1']['factorial'] = oms_integer1_factorial
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
 OMDICTS['list1']['list'] = oms_list1_list
+
+#arith1 http://www.openmath.org/cd/arith1.xhtml
+OMDICTS['arith1'] = {}
+OMDICTS['arith1']['times'] = oms_arith1_times
+OMDICTS['arith1']['divide'] = oms_arith1_divide
+OMDICTS['arith1']['plus'] = oms_arith1_plus
+OMDICTS['arith1']['minus'] = oms_arith1_minus
 
 # linalg2     http://www.openmath.org/cd/linalg2.xhtml
 OMDICTS['linalg2'] = {}
