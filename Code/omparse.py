@@ -5,7 +5,6 @@ This module provides a number of functions for decoding "objects"
 from the parsed XML tree.
 
 """
-import CDs
 from CDs import *
 from symbol import Symbol
 from applications import *

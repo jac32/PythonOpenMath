@@ -5,7 +5,6 @@ This module provides  a number of functions for encoding "objects"
 into OpenMath XML format.
 
 """
-
 import CDs
 from CDs import * 
 from symbol import Symbol
@@ -95,61 +94,6 @@ def om_rational(ratio):
     omelt.insert(1, oms)
     omelt.insert(2, om_element(ratio.numerator))
     omelt.insert(3, om_element(ratio.denominator))
-    return omelt
-
-################################################################
-#
-# Arith (Arith1)
-#
-
-def om_arith1_gcd(gcd):
-    """ Gcd arithmetic expression encoding method.
-
-    Creates a new OMA element and encodes the expression to be
-    stored within.
-
-    :param divide: The object representing the expression
-    :returns: The OMA element representing the expression
-    """
-    omelt = Element("OMA")
-    oms = Element("OMS")
-    oms.attrib = {'cd' : 'arith1', 'name': 'gcd'}
-    omelt.insert(1, oms)
-    omelt.insert(2, om_element(gcd.a))
-    omelt.insert(3, om_element(gcd.b))
-    return omelt
-
-def om_arith1_lcm(lcm):
-    """ Lcm arithmetic expression encoding method.
-
-    Creates a new OMA element and encodes the expression to be
-    stored within.
-
-    :param divide: The object representing the expression
-    :returns: The OMA element representing the expression
-    """
-    omelt = Element("OMA")
-    oms = Element("OMS")
-    oms.attrib = {'cd' : 'arith1', 'name': 'lcm'}
-    omelt.insert(1, oms)
-    omelt.insert(2, om_element(lcm.a))
-    omelt.insert(3, om_element(lcm.b))
-    return omelt
-
-def om_arith1_unary_minus(un_minus):
-    """ Unary minus arithmetic expression encoding method.
-
-    Creates a new OMA element and encodes the expression to be
-    stored within.
-
-    :param divide: The object representing the expression
-    :returns: The OMA element representing the expression
-    """
-    omelt = Element("OMA")
-    oms = Element("OMS")
-    oms.attrib = {'cd' : 'arith1', 'name': 'unary_minus'}
-    omelt.insert(1, oms)
-    omelt.insert(2, om_element(un_minus.a))
     return omelt
 
 ################################################################
