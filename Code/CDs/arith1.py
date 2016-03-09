@@ -1,5 +1,11 @@
+import math
 import abc
 from symbol import Symbol
+from fractions import gcd
+import xml.etree.ElementTree as ET
+
+Element = ET.Element
+SUBELEMENT = ET.SubElement
 
 class Arith1Times(Symbol):
     """
@@ -285,7 +291,7 @@ class Arith1Root(Symbol):
         """
         self.a = nums[0]
         self.b = nums[1]
-        self.res = self.eval()
+        self.value = self.eval()
              
     def __str__(self):
         """
@@ -325,12 +331,142 @@ class Arith1Root(Symbol):
         Function taken from http://stackoverflow.com/questions/15978781/how-to-find-integer-nth-roots
         to calculate the nth root of the number
         """
-        u, s = n, n+1
-        while u < s:
-            s = u
-            t = (k-1) * s + n // pow(s, k-1)
-            u = t // k
-        return s
+        return k ** (1/n)
+
+class Arith1Gcd(Symbol):
+    """
+    Class describing an OpenMath gcd node
+    """
+    def __init__(self,*nums):
+        """
+        Constructor for an arith1 gcd instance
+        :param nums: the tuple storing the left and right operands
+        """
+        self.a = nums[0]
+        self.b = nums[1]
+        self.value = self.eval()
+             
+    def __str__(self):
+        """
+        Function for printing out a gcd node
+        """
+        print("gcd(" + self.a + ", " + self.b + ") = " + self.value)
+        
+    @staticmethod
+    def name():
+        return 'gcd'
+
+    @staticmethod
+    def dictionary():
+        return 'arith1'
+
+    @staticmethod
+    def put(element):
+        return arith1_put(element, Arith1Gcd)
+       
+    def eval(self):
+        """
+        Function for evaluating gcd expression
+        """
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
+            else:
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return gcd(a, b)
+
+class Arith1Lcm(Symbol):
+    """
+    Class describing an OpenMath lcm node
+    """
+    def __init__(self,*nums):
+        """
+        Constructor for an arith1 lcm instance
+        :param nums: the tuple storing the left and right operands
+        """
+        self.a = nums[0]
+        self.b = nums[1]
+        self.value = self.eval()
+             
+    def __str__(self):
+        """
+        Function for printing out a lcm node
+        """
+        print("lcm(" + self.a + ", " + self.b + ") = " + self.value)
+          
+    @staticmethod
+    def name():
+        return 'lcm'
+
+    @staticmethod
+    def dictionary():
+        return 'arith1'
+
+    @staticmethod
+    def put(element):
+        return arith1_put(element, Arith1Lcm)
+    
+    def eval(self):
+        """
+        Function for evaluating lcm expression
+        """
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
+            else:
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return abs(a*b) / gcd(a,b) if a and b else 0
+    
+class Arith1UnMinus(Symbol):
+    """
+    Class describing an OpenMath unary minus node
+    """
+    def __init__(self,*num):
+        """
+        Constructor for an arith1 unary minus instance
+        :param num: stores an operand
+        """
+        self.a = num[0]
+        self.value= self.eval()
+             
+    def __str__(self):
+        """
+        Function for printing out a unary minus node
+        """
+        print(self.a + " = " + self.value)
+    
+    @staticmethod
+    def name():
+        return 'unary_minus'
+
+    @staticmethod
+    def dictionary():
+        return 'arith1'
+
+    @staticmethod
+    def put(element):
+        omelt = Element("OMA")
+        oms = Element("OMS")
+        oms.attrib = {'cd' : 'arith1', 'name': 'unary_minus'}
+        omelt.insert(1, oms)
+        omelt.insert(2, om_element(element.a))
+        return omelt
+          
+    def eval(self):
+        """
+        Function for evaluating unary minus expression
+        """
+        if isinstance(self.a, (int, float, complex)):
+            return -(self.a)
+        else: 
+            return -(self.a.value)
+   
 
 class InvalidSyntaxError(Exception):
     """

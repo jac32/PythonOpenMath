@@ -66,7 +66,7 @@ class Decoding(unittest.TestCase):
     def test_encode_factorial(self):
         print('Decoding:test_factorial')
         test_factorial = CDs.factorial.Factorial(10)
-        self.assertEqual(test_factorial.num, parse_om_file('tst/Factorial.xml').num)
+        self.assertEqual(test_factorial.num, parse_om_file('tst/factorial.xml').num)
 
     def test_encode_matrix_3x3(self):
         print('Decoding:test_matrix_3x3')
@@ -75,7 +75,7 @@ class Decoding(unittest.TestCase):
                               CDs.matrix.MatrixRow(0, -1, -100))
         
         self.assertListEqual(test_matrix.flatten(),
-                            parse_om_file('tst/Matrix.xml').flatten())
+                            parse_om_file('tst/matrix.xml').flatten())
 
     def test_eval_plus(self):
         print('Decoding:test_plus')
