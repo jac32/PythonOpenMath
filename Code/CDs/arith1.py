@@ -97,6 +97,8 @@ class Arith1Divide(Symbol):
                 b= self.b.value
         else:
             a= self.a.value 
+        if b == 0:
+            raise DivideByZeroError()
         return a / b
     
 class Arith1Plus(Symbol):
@@ -331,6 +333,8 @@ class Arith1Root(Symbol):
         Function taken from http://stackoverflow.com/questions/15978781/how-to-find-integer-nth-roots
         to calculate the nth root of the number
         """
+        if n == 0:
+            raise DivideByZeroError()
         return k ** (1/n)
 
 class Arith1Gcd(Symbol):
@@ -468,23 +472,15 @@ class Arith1UnMinus(Symbol):
             return -(self.a.value)
    
 
-class InvalidSyntaxError(Exception):
+class DivideByZeroError(Exception):
     """
     Class describing an error in the OpenMath XML that was passed in originally
     """
-    def __init__(self,msg):
-        """
-        Constructor which instantiates a new instance of this error
-        with a message
-        :param msg: the message corresponding to the error
-        """
-        self.msg = msg  
-        
     def __str__(self):
         """
         prints out the error message
         """            
-        return str(self.msg)
+        return "Cannot divide by Zero"
 
 
     
