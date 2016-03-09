@@ -24,7 +24,6 @@ for class_ in CDs:
 for class_ in CDs:
     OMDICTS[class_.dictionary()][class_.name()] = class_
 
-
 # logic1 http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
 OMDICTS['logic1']['true'] = True
@@ -56,7 +55,34 @@ def parse_oms(node):
     :param node: The XML node representing the OpenMath Symbol.
     :returns: The function to apply to the list of adjacent nodes.
     """
-    return OMDICTS[node.get('cd')][node.get('name')]
+
+    cd = node.get('cd')
+    name = node.get('name')
+    return omdict_lookup(cd, name)
+
+
+
+def omdict_lookup(cd, name):
+    """ Looks up OMDICTS for the symbol constructor
+
+    Handles error checking for a OMDICT lookup
+
+    :param cd: The string name of the content dictionary
+    :param name: The string name of the symbol
+    :returns: The symbol constructor
+    """
+    
+    try:
+        dict_ = OMDICTS[cd]
+    except:
+        raise UnsupportedCDError(cd)
+    
+    try:
+        symbol= dict_[name]
+    except:
+        raise UnexpectedSymbolError(name)
+
+    return symbol
 
 def parse_oma(node):
     """ Parses the contents of an OpenMath Application node.
@@ -115,4 +141,8 @@ def parse_om_root(root):
     print(omobj)
     42
     """
+    
     return parse_om_element(root[0])
+    
+
+
