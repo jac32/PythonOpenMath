@@ -55,6 +55,9 @@ OMDICTS['arith1']['minus'] = Arith1Minus
 OMDICTS['arith1']['power'] = Arith1Power
 OMDICTS['arith1']['abs'] = Arith1Abs
 OMDICTS['arith1']['root'] = Arith1Root
+OMDICTS['arith1']['gcd'] = Arith1Gcd
+OMDICTS['arith1']['lcm'] = Arith1Lcm
+OMDICTS['arith1']['unary_minus'] = Arith1UnMinus
 
 
 # linalg2     http://www.openmath.org/cd/linalg2.xhtml

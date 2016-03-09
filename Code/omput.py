@@ -8,7 +8,7 @@ into OpenMath XML format.
 from fractions import Fraction
 from matrix import Matrix,MatrixRow
 from factorial import Factorial
-from arith1 import Arith1Divide, Arith1Minus, Arith1Plus, Arith1Times, Arith1Power, Arith1Abs, Arith1Root
+from arith1 import Arith1Divide, Arith1Minus, Arith1Plus, Arith1Times, Arith1Power, Arith1Abs, Arith1Root, Arith1Gcd, Arith1Lcm, Arith1UnMinus
 from dictionary import Dictionary,KeyValuePair
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
@@ -238,6 +238,57 @@ def om_arith1_root(root):
     omelt.insert(2, om_element(root.a))
     omelt.insert(3, om_element(root.b))
     return omelt
+
+def om_arith1_gcd(gcd):
+    """ Gcd arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'gcd'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(gcd.a))
+    omelt.insert(3, om_element(gcd.b))
+    return omelt
+
+def om_arith1_lcm(lcm):
+    """ Lcm arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'lcm'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(lcm.a))
+    omelt.insert(3, om_element(lcm.b))
+    return omelt
+
+def om_arith1_unary_minus(un_minus):
+    """ Unary minus arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'unary_minus'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(un_minus.a))
+    return omelt
+
 ################################################################
 #
 # List (list1.list)
@@ -421,6 +472,12 @@ def om_arith(element):
         return om_arith1_abs(element)
     elif isinstance(element,Arith1Root):
         return om_arith1_root(element)
+    elif isinstance(element,Arith1Gcd):
+        return om_arith1_gcd(element)
+    elif isinstance(element,Arith1Lcm):
+        return om_arith1_lcm(element)
+    elif isinstance(element,Arith1UnMinus):
+        return om_arith1_unary_minus(element)
     return None
 
 ################################################################

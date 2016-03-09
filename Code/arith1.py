@@ -19,7 +19,7 @@ class Arith1Times(object):
         """
         Function for printing out a times node
         """
-        print(self.a + " * " + self.b+ " = " + self.value)
+        print(self.a + " * " + self.b + " = " + self.value)
         
     def eval(self):
         """
@@ -87,7 +87,7 @@ class Arith1Plus(object):
         """
         Function for printing out a plus node
         """
-        print(self.a + " + " + self.b+ " = " + self.value)
+        print(self.a + " + " + self.b + " = " + self.value)
         
     def eval(self):
         """
@@ -121,7 +121,7 @@ class Arith1Minus(object):
         """
         Function for printing out a minus node
         """
-        print(self.a + " - " + self.b+ " = " + self.value)
+        print(self.a + " - " + self.b + " = " + self.value)
         
     def eval(self):
         """
@@ -243,7 +243,99 @@ class Arith1Root(object):
         else:
             a= self.a.value 
         return self.root(a,b)
-   
+
+class Arith1Gcd(object):
+    """
+    Class describing an OpenMath gcd node
+    """
+    def __init__(self,*nums):
+        """
+        Constructor for an arith1 gcd instance
+        :param nums: the tuple storing the left and right operands
+        """
+        self.a = nums[0]
+        self.b = nums[1]
+        self.value = self.eval()
+             
+    def __str__(self):
+        """
+        Function for printing out a gcd node
+        """
+        print("gcd(" + self.a + ", " + self.b + ") = " + self.value)
+        
+    def eval(self):
+        """
+        Function for evaluating gcd expression
+        """
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
+            else:
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return gcd(a, b)
+
+class Arith1Lcm(object):
+    """
+    Class describing an OpenMath lcm node
+    """
+    def __init__(self,*nums):
+        """
+        Constructor for an arith1 lcm instance
+        :param nums: the tuple storing the left and right operands
+        """
+        self.a = nums[0]
+        self.b = nums[1]
+        self.value = self.eval()
+             
+    def __str__(self):
+        """
+        Function for printing out a lcm node
+        """
+        print("lcm(" + self.a + ", " + self.b + ") = " + self.value)
+        
+    def eval(self):
+        """
+        Function for evaluating lcm expression
+        """
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
+            else:
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return lcm(a,b)
+    
+class Arith1UnMinus(object):
+    """
+    Class describing an OpenMath unary minus node
+    """
+    def __init__(self,*num):
+        """
+        Constructor for an arith1 unary minus instance
+        :param num: stores an operand
+        """
+        self.a = num[0]
+        self.value= self.eval()
+             
+    def __str__(self):
+        """
+        Function for printing out a unary minus node
+        """
+        print(self.a + " = " + self.value)
+        
+    def eval(self):
+        """
+        Function for evaluating unary minus expression
+        """
+        if isinstance(self.a, (int, float, complex)):
+            return -(self.a)
+        else: 
+            return -(self.a.value)
    
 class InvalidSyntaxError(Exception):
     """
