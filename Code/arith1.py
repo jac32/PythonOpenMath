@@ -1,9 +1,8 @@
 '''
 Created on 6/3/2016
 '''
-from pyparsing import nums
 
-class Arith1Times:
+class Arith1Times(object):
     """
     Class describing an OpenMath times node
     """
@@ -14,7 +13,7 @@ class Arith1Times:
         """
         self.a = nums[0]
         self.b = nums[1]
-        self.res = eval(self.a, self.b)
+        self.value = self.eval()
              
     def __str__(self):
         """
@@ -26,17 +25,17 @@ class Arith1Times:
         """
         Function for evaluating times expression
         """
-        if isinstance(self.a, (int, long, float, complex)):
-            if isinstance(self.b, (int, long, float, complex)):
-                return (self.a * self.b)
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
             else:
-                return (self.a * eval(self.b))
-        elif isinstance(self.b, (int, long, float, complex)):
-            return (eval(self.a ) * self.b)
-        else :
-            return (eval(self.a) * eval(self.b))
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return a * b
             
-class Arith1Divide:
+class Arith1Divide(object):
     """
     Class describing an OpenMath divide node
     """
@@ -47,7 +46,7 @@ class Arith1Divide:
         """
         self.a = nums[0]
         self.b = nums[1]
-        self.res = eval(self.a, self.b)
+        self.value= self.eval()
              
     def __str__(self):
         """
@@ -59,17 +58,17 @@ class Arith1Divide:
         """
         Function for evaluating divide expression
         """
-        if isinstance(self.a, (int, long, float, complex)):
-            if isinstance(self.b, (int, long, float, complex)):
-                return (self.a / self.b)
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
             else:
-                return (self.a / eval(self.b))
-        elif isinstance(self.b, (int, long, float, complex)):
-            return (eval(self.a ) / self.b)
-        else :
-            return (eval(self.a) / eval(self.b))
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return a / b
     
-class Arith1Plus:
+class Arith1Plus(object):
     """
     Class describing an OpenMath plus node
     """
@@ -80,7 +79,7 @@ class Arith1Plus:
         """
         self.a = nums[0]
         self.b = nums[1]
-        self.res = eval(self.a, self.b)
+        self.value = self.eval()
              
     def __str__(self):
         """
@@ -92,17 +91,17 @@ class Arith1Plus:
         """
         Function for evaluating plus expression
         """
-        if isinstance(self.a, (int, long, float, complex)):
-            if isinstance(self.b, (int, long, float, complex)):
-                return (self.a + self.b)
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
             else:
-                return (self.a + eval(self.b))
-        elif isinstance(self.b, (int, long, float, complex)):
-            return (eval(self.a ) + self.b)
-        else :
-            return (eval(self.a) + eval(self.b))
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return a + b
    
-class Arith1Minus:
+class Arith1Minus(object):
     """
     Class describing an OpenMath minus node
     """
@@ -113,7 +112,7 @@ class Arith1Minus:
         """
         self.a = nums[0]
         self.b = nums[1]
-        self.res = eval(self.a, self.b)
+        self.value= self.eval()
              
     def __str__(self):
         """
@@ -125,17 +124,17 @@ class Arith1Minus:
         """
         Function for evaluating minus expression
         """
-        if isinstance(self.a, (int, long, float, complex)):
-            if isinstance(self.b, (int, long, float, complex)):
-                return (self.a - self.b)
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
             else:
-                return (self.a - eval(self.b))
-        elif isinstance(self.b, (int, long, float, complex)):
-            return (eval(self.a ) - self.b)
-        else :
-            return (eval(self.a) - eval(self.b))
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return a - b
                  
-class Arith1Power:
+class Arith1Power(object):
     """
     Class describing an OpenMath power node
     """
@@ -146,7 +145,7 @@ class Arith1Power:
         """
         self.a = nums[0]
         self.b = nums[1]
-        self.res = eval(self.a, self.b)
+        self.value = self.eval()
              
     def __str__(self):
         """
@@ -158,17 +157,17 @@ class Arith1Power:
         """
         Function for evaluating power expression
         """
-        if isinstance(self.a, (int, long, float, complex)):
-            if isinstance(self.b, (int, long, float, complex)):
-                return pow(self.a, self.b)
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
             else:
-                return pow(self.a, eval(self.b))
-        elif isinstance(self.b, (int, long, float, complex)):
-            return pow(eval(self.a ), self.b)
-        else :
-            return pow(eval(self.a), eval(self.b))
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return a ** b
 
-class Arith1Abs:
+class Arith1Abs(object):
     """
     Class describing an OpenMath abs node
     """
@@ -177,8 +176,8 @@ class Arith1Abs:
         Constructor for an arith1 abs instance
         :param num: stores an operand
         """
-        self.a = nums[0]
-        self.res = eval(self.a)
+        self.a = num[0]
+        self.value= self.eval()
              
     def __str__(self):
         """
@@ -190,23 +189,23 @@ class Arith1Abs:
         """
         Function for evaluating times expression
         """
-        if isinstance(self.a, (int, long, float, complex)):
+        if isinstance(self.a, (int, float, complex)):
             return abs(self.a)
         else: 
-            return abs(eval(self.a))
+            return abs(self.a.value)
                  
-class Arith1Root:
+class Arith1Root(object):
     """
     Class describing an OpenMath root node
     """
-    def __init__(self,*num):
+    def __init__(self,*nums):
         """
         Constructor for an arith1 root instance
         :param num: the tuple storing the left and right operands
         """
         self.a = nums[0]
         self.b = nums[1]
-        self.res = eval(self.a, self.b)
+        self.res = self.eval()
              
     def __str__(self):
         """
@@ -215,7 +214,7 @@ class Arith1Root:
         print("root (" + self.a + ", " + self.b + ")")
         
 
-    def iroot(k, n):
+    def iroot(self,k, n):
         """
         Function taken from http://stackoverflow.com/questions/15978781/how-to-find-integer-nth-roots
         to calculate the nth root of the number
@@ -231,13 +230,31 @@ class Arith1Root:
         """
         Function for evaluating root expression
         """
-        if isinstance(self.a, (int, long, float, complex)):
-            if isinstance(self.b, (int, long, float, complex)):
-                return iroot(self.a, self.b)
+        if isinstance(self.a, (int, float, complex)):
+            a= self.a
+            if isinstance(self.b, (int,float, complex)):
+                b= self.b
             else:
-                return iroot(self.a, eval(self.b))
-        elif isinstance(self.b, (int, long, float, complex)):
-            return iroot(eval(self.a ), self.b)
-        else :
-            return iroot(eval(self.a), eval(self.b))
-                 
+                b= self.b.value
+        else:
+            a= self.a.value 
+        return self.iroot(a,b)
+   
+   
+def InvalidSyntaxError(Exception):
+    """
+    Class describing an error in the OpenMath XML that was passed in originally
+    """
+    def __init__(self,msg):
+        """
+        Constructor which instantiates a new instance of this error
+        with a message
+        :param msg: the message corresponding to the error
+        """
+        self.msg = msg  
+        
+    def __str__(self):
+        """
+        prints out the error message
+        """            
+        return str(self.msg)

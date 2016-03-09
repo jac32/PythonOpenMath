@@ -133,5 +133,3 @@ def parse_om_root(root):
     42
     """
     return parse_om_element(root[0])
-
-

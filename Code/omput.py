@@ -283,13 +283,13 @@ def om_dictionary(dictionary):
     return omelt
 
 def om_key_val(keyval):
-    """ Matrix row element encoding method.
+    """ Key Val element encoding method.
 
-    Creates a new OMA element and encodes the matrix row to be
+    Creates a new OMA element and encodes the key val to be
     stored within
 
-    :param x: The list representing the matrix row
-    :returns: The OMA element representing the given matrix row
+    :param keyval: The keyval Object representing the key val
+    :returns: The OMA element representing the given key val pair
     """
     omelt = Element("OMA")
     oms = Element("OMS")
