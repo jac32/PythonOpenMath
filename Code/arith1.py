@@ -19,11 +19,12 @@ class Arith1Times(object):
         """
         Function for printing out a times node
         """
-        print(self.a + " * " + self.b)
+        print(self.a + " * " + self.b+ " = " + self.value)
         
     def eval(self):
         """
         Function for evaluating times expression
+        :return the instance's 'a' field times its 'b' field
         """
         if isinstance(self.a, (int, float, complex)):
             a= self.a
@@ -52,11 +53,12 @@ class Arith1Divide(object):
         """
         Function for printing out a divide node
         """
-        print(self.a + " / " + self.b)
+        print(self.a + " / " + self.b + " = " + self.value)
         
     def eval(self):
         """
         Function for evaluating divide expression
+        :return the instance's 'a' field divided by its 'b' field
         """
         if isinstance(self.a, (int, float, complex)):
             a= self.a
@@ -85,11 +87,12 @@ class Arith1Plus(object):
         """
         Function for printing out a plus node
         """
-        print(self.a + " + " + self.b)
+        print(self.a + " + " + self.b+ " = " + self.value)
         
     def eval(self):
         """
         Function for evaluating plus expression
+        :return the instance's 'a' field plus its 'b' field
         """
         if isinstance(self.a, (int, float, complex)):
             a= self.a
@@ -100,7 +103,7 @@ class Arith1Plus(object):
         else:
             a= self.a.value 
         return a + b
-   
+
 class Arith1Minus(object):
     """
     Class describing an OpenMath minus node
@@ -118,11 +121,12 @@ class Arith1Minus(object):
         """
         Function for printing out a minus node
         """
-        print(self.a + " - " + self.b)
+        print(self.a + " - " + self.b+ " = " + self.value)
         
     def eval(self):
         """
         Function for evaluating minus expression
+        :return the instance's 'a' field minus it's 'b' field
         """
         if isinstance(self.a, (int, float, complex)):
             a= self.a
@@ -151,11 +155,12 @@ class Arith1Power(object):
         """
         Function for printing out a power node
         """
-        print(self.a + " ^ " + self.b)
+        print(self.a + " ^ " + self.b+ " = " + self.value)
         
     def eval(self):
         """
         Function for evaluating power expression
+        :return the instance's 'a' field to the power of its 'b' field
         """
         if isinstance(self.a, (int, float, complex)):
             a= self.a
@@ -183,11 +188,12 @@ class Arith1Abs(object):
         """
         Function for printing out a abs node
         """
-        print("|" + self.a + "|")
+        print("|" + self.a + "|" + " = " + self.value)
         
     def eval(self):
         """
         Function for evaluating times expression
+        :return the absolute value of the instance's 'a' field
         """
         if isinstance(self.a, (int, float, complex)):
             return abs(self.a)
@@ -205,26 +211,24 @@ class Arith1Root(object):
         """
         self.a = nums[0]
         self.b = nums[1]
-        self.res = self.eval()
+        self.value = self.eval()
              
     def __str__(self):
         """
         Function for printing out a abs node
         """
-        print("root (" + self.a + ", " + self.b + ")")
+        print("root (" + self.a + ", " + self.b + ")" + " = " + self.value)
         
 
-    def iroot(self,k, n):
+    def root(self,base, n):
         """
-        Function taken from http://stackoverflow.com/questions/15978781/how-to-find-integer-nth-roots
-        to calculate the nth root of the number
+        Function to calculate the nth root of a number
+        :param base: the number being rooted
+        :param n: the nth root to be calculated
+        :return the nth root of base
+        :rtype integer
         """
-        u, s = n, n+1
-        while u < s:
-            s = u
-            t = (k-1) * s + n // pow(s, k-1)
-            u = t // k
-        return s
+        return base ** (1/n)
                  
     def eval(self):
         """
@@ -238,10 +242,10 @@ class Arith1Root(object):
                 b= self.b.value
         else:
             a= self.a.value 
-        return self.iroot(a,b)
+        return self.root(a,b)
    
    
-def InvalidSyntaxError(Exception):
+class InvalidSyntaxError(Exception):
     """
     Class describing an error in the OpenMath XML that was passed in originally
     """

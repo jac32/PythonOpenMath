@@ -75,14 +75,53 @@ class Decoding(unittest.TestCase):
         self.assertListEqual(test_matrix.flatten(),
                             parse_om_file('tst/Matrix.xml').flatten())
 
+    def test_eval_plus(self):
+        print('Decoding:test_plus')
+        test_plus = 25
+        self.assertEqual(test_plus, parse_om_file('tst/arithplus.xml').value)
+        
+    def test_eval_minus(self):
+        print('Decoding:test_minus')
+        test_minus = 5
+        self.assertEqual(test_minus, parse_om_file('tst/arithminus.xml').value)
+        
+    def test_eval_times(self):
+        print('Decoding:test_times')
+        test_times = 150
+        self.assertEqual(test_times , parse_om_file('tst/arithtimes.xml').value)
+        
+    def test_eval_divide(self):
+        print('Decoding:test_divide')
+        test_div = 1.5
+        self.assertEqual(test_div , parse_om_file('tst/arithdivide.xml').value)
+      
+    def test_eval_power(self):
+        print('Decoding:test_power')
+        test_pow = 16
+        self.assertEqual(test_pow , parse_om_file('tst/arithpower.xml').value)
+    
+    def test_eval_root(self):
+        print('Decoding:test_power')
+        test_root = 2
+        self.assertEqual(test_root, parse_om_file('tst/arithroot.xml').value)
+          
+    def test_eval_abs(self):
+        print('Decoding:test_abs')
+        test_abs = 15
+        self.assertEqual(test_abs , parse_om_file('tst/arithabs.xml').value)
+        
+    def test_eval_nested_plus(self):
+        print('Decoding:test_divide')
+        test_plus = 22
+        self.assertEqual(test_plus, parse_om_file('tst/arithnestedplus.xml').value)
 
-class Decoding(unittest.TestCase):
+#class Decoding(unittest.TestCase):
     """ Testing of Decoding/Parsing Methods"""
 
-    def test_decode_int_42(self):
-        print('Encoding:test_decode_int_42')
-        test_result = '<OMOBJ> <OMI>42</OMI> </OMOBJ>'
-        self.assertEqual(test_result, om_string(42))
+#    def test_decode_int_42(self):
+#        print('Encoding:test_decode_int_42')
+#        test_result = '<OMOBJ> <OMI>42</OMI> </OMOBJ>'
+#        self.assertEqual(test_result, om_string(42))
 
 if __name__ == '__main__':
     unittest.main()
