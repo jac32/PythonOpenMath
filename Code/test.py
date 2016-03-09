@@ -1,3 +1,4 @@
+
 """ Parsing Unit Tests
 ======================
 
@@ -5,9 +6,10 @@ Test cases for the parsing of OpenMath XML Strings
 """
 
 import unittest
+import CDs
+from CDs import *
+from symbol import Symbol
 from fractions import Fraction
-from factorial import Factorial
-from matrix import Matrix, MatrixRow
 from openmath import parse_om_file, om_string
 
 
@@ -63,25 +65,25 @@ class Decoding(unittest.TestCase):
 
     def test_encode_factorial(self):
         print('Decoding:test_factorial')
-        test_factorial = Factorial(10)
+        test_factorial = CDs.factorial.Factorial(10)
         self.assertEqual(test_factorial.num, parse_om_file('tst/Factorial.xml').num)
 
     def test_encode_matrix_3x3(self):
         print('Decoding:test_matrix_3x3')
-        test_matrix = Matrix(MatrixRow(1,2,3),
-                              MatrixRow(42, 5, 6),
-                              MatrixRow(0, -1, -100))
+        test_matrix = CDs.matrix.Matrix(CDs.matrix.MatrixRow(1,2,3),
+                              CDs.matrix.MatrixRow(42, 5, 6),
+                              CDs.matrix.MatrixRow(0, -1, -100))
         
         self.assertListEqual(test_matrix.flatten(),
                             parse_om_file('tst/Matrix.xml').flatten())
 
 
-class Decoding(unittest.TestCase):
+class Encoding(unittest.TestCase):
     """ Testing of Decoding/Parsing Methods"""
 
-    def test_decode_int_42(self):
+    def test_encode_int_42(self):
         print('Encoding:test_decode_int_42')
-        test_result = '<OMOBJ> <OMI>42</OMI> </OMOBJ>'
+        test_result = '<OMOBJ><OMI>42</OMI></OMOBJ>'
         self.assertEqual(test_result, om_string(42))
 
 if __name__ == '__main__':

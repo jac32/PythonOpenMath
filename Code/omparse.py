@@ -5,19 +5,27 @@ This module provides a number of functions for decoding "objects"
 from the parsed XML tree.
 
 """
-from matrix import *
+import CDs
+from CDs import *
+from symbol import Symbol
 from applications import *
-from factorial import *
-from arith1 import *
-from dictionary import *
+
 
 ################################################################
 #
 # OpenMath content dictionaries
 #
+CDs = Symbol.__subclasses__()
 OMDICTS = {}
 
-# logic1	http://www.openmath.org/cd/logic1.xhtml
+for class_ in CDs:
+    OMDICTS[class_.dictionary()] = {}
+
+for class_ in CDs:
+    OMDICTS[class_.dictionary()][class_.name()] = class_
+
+
+# logic1 http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
 OMDICTS['logic1']['true'] = True
 OMDICTS['logic1']['false'] = False
@@ -34,33 +42,10 @@ OMDICTS['complex1']['complex_cartesian'] = oms_complex1_complex_cartesian
 OMDICTS['interval1'] = {}
 OMDICTS['interval1']['integer_interval'] = oms_interval1_integer_interval
 
-#integer1     http://www.openmath.org/cd/integer1.xhtml
-OMDICTS['integer1'] = {}
-OMDICTS['integer1']['factorial'] = Factorial
-
 # list1    http://www.openmath.org/cd/list1.xhtml
 OMDICTS['list1'] = {}
 OMDICTS['list1']['list'] = oms_list1_list
 
-OMDICTS['dict1'] = {}
-OMDICTS['dict1']['dict'] = Dictionary
-OMDICTS['dict1']['key_val'] = KeyValuePair
-
-#arith1 http://www.openmath.org/cd/arith1.xhtml
-OMDICTS['arith1'] = {}
-OMDICTS['arith1']['times'] = Arith1Times
-OMDICTS['arith1']['divide'] = Arith1Divide
-OMDICTS['arith1']['plus'] = Arith1Plus
-OMDICTS['arith1']['minus'] = Arith1Minus
-OMDICTS['arith1']['power'] = Arith1Power
-OMDICTS['arith1']['abs'] = Arith1Abs
-OMDICTS['arith1']['root'] = Arith1Root
-
-
-# linalg2     http://www.openmath.org/cd/linalg2.xhtml
-OMDICTS['linalg2'] = {}
-OMDICTS['linalg2']['matrix'] = Matrix
-OMDICTS['linalg2']['matrixrow'] = MatrixRow 
 
 
 ###############################################################
