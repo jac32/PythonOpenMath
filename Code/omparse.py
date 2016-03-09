@@ -46,8 +46,6 @@ OMDICTS['interval1']['integer_interval'] = oms_interval1_integer_interval
 OMDICTS['list1'] = {}
 OMDICTS['list1']['list'] = oms_list1_list
 
-
-
 ###############################################################
 def parse_oms(node):
     """ Parses a OpenMath Symbol node.
@@ -118,5 +116,3 @@ def parse_om_root(root):
     42
     """
     return parse_om_element(root[0])
-
-

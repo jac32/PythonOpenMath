@@ -5,10 +5,10 @@ This module provides  a number of functions for encoding "objects"
 into OpenMath XML format.
 
 """
+
 import CDs
 from CDs import * 
 from symbol import Symbol
-
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
@@ -98,6 +98,61 @@ def om_rational(ratio):
 
 ################################################################
 #
+# Arith (Arith1)
+#
+
+def om_arith1_gcd(gcd):
+    """ Gcd arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'gcd'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(gcd.a))
+    omelt.insert(3, om_element(gcd.b))
+    return omelt
+
+def om_arith1_lcm(lcm):
+    """ Lcm arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'lcm'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(lcm.a))
+    omelt.insert(3, om_element(lcm.b))
+    return omelt
+
+def om_arith1_unary_minus(un_minus):
+    """ Unary minus arithmetic expression encoding method.
+
+    Creates a new OMA element and encodes the expression to be
+    stored within.
+
+    :param divide: The object representing the expression
+    :returns: The OMA element representing the expression
+    """
+    omelt = Element("OMA")
+    oms = Element("OMS")
+    oms.attrib = {'cd' : 'arith1', 'name': 'unary_minus'}
+    omelt.insert(1, oms)
+    omelt.insert(2, om_element(un_minus.a))
+    return omelt
+
+################################################################
+#
 # List (list1.list)
 #
 def om_list(list_):
@@ -139,8 +194,6 @@ def om_bool(bool_):
     omelt.insert(0, oms)
     return omelt
 
-
-
 def om_complex_cartesian(complex_num):
     """Complex number encoding method.
 
@@ -174,7 +227,6 @@ def om_integer_interval(interval):
     omelt.insert(2, om_element(interval[0]))
     omelt.insert(3, om_element(interval[-1]+1))
     return omelt
-
 
 
 ################################################################
