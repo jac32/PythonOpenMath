@@ -24,12 +24,16 @@ def handler(clientsock,addr):
 
     Houses the main loop for interaction with a single client
     """
-    while 1:
-        data = clientsock.recv(BUFSIZ)
-        if not data:
-            break
-        result = pickle.dumps(parse_om_string(str(data, 'UTF-8')))
-        clientsock.send(result)
+    while True:
+        try:
+            data = clientsock.recv(BUFSIZ)
+            if not data:
+                break
+            result = pickle.dumps(parse_om_string(str(data, 'UTF-8')))
+            clientsock.send(result)
+        except:
+            clientsock.send(pickle.dumps("error"))
+        
     clientsock.close()
 
 

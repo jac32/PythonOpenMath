@@ -18,7 +18,9 @@ def setup():
     port = 54345
     
     socket = create_socket(host,port)
-    prompt(socket)
+    exit_ = False
+    while (not exit_):
+        exit_ = prompt(socket)
     socket.close()
 
 
@@ -58,16 +60,27 @@ def prompt(s):
     This function prompts the user for either a file or an OpenMath xml string
     to send to the server
     """
-    choice = input("Do you want to enter a file or enter manually? (y/n)")
-    if(choice == 'y'):
+    choice = input("Do you want to enter a file or enter manually? (f/m/q)"
+                   + " \n> ")
+    
+    if(choice == 'f'):
         str_ = input("Enter in a file")
-        file = open(str_,"r")
-        msg = file.read()
+        with open(str_,"r") as file:
+            msg = file.read()
+            send_msg(msg,s)
+            file.close()
+
+    elif(choice == 'm'):
+        msg = input("Enter in an OpenMath expression "
+                    + " \n> ")
         send_msg(msg,s)
-        file.close()
-    elif(choice == 'n'):
-        msg = input("Enter in an OpenMath expression")
-        send_msg(msg,s)
+
+    elif(choice == 'q'):
+        return True
+    else: prompt(s)
+
+        
+    return False
 
 
 
