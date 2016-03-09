@@ -1,6 +1,7 @@
 '''
 Created on 6/3/2016
 '''
+from math import gcd
 
 class Arith1Times(object):
     """
@@ -308,7 +309,7 @@ class Arith1Lcm(object):
                 b= self.b.value
         else:
             a= self.a.value 
-        return lcm(a,b)
+        return abs(a*b) / gcd(a,b) if a and b else 0
     
 class Arith1UnMinus(object):
     """
