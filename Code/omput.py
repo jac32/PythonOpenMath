@@ -9,6 +9,7 @@ into OpenMath XML format.
 import CDs
 from CDs import * 
 from symbol import Symbol
+from fractions import Fraction
 
 # Encoding Python parser for OpenMath (http://www.openmath.org/)
 # See https://docs.python.org/3.4/library/xml.etree.elementtree.html
