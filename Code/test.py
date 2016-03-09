@@ -114,6 +114,21 @@ class Decoding(unittest.TestCase):
         print('Decoding:test_divide')
         test_plus = 22
         self.assertEqual(test_plus, parse_om_file('tst/arithnestedplus.xml').value)
+        
+    def test_eval_gcd(self):
+        print('Decoding:test_gcd')
+        test_plus = 3
+        self.assertEqual(test_plus, parse_om_file('tst/arithgcd.xml').value)
+        
+    def test_eval_lcm(self):
+        print('Decoding:test_lcm')
+        test_plus = 36
+        self.assertEqual(test_plus, parse_om_file('tst/arithlcm.xml').value)
+        
+    def test_eval_unary_minus(self):
+        print('Decoding:test_unary_minus')
+        test_plus = -8
+        self.assertEqual(test_plus, parse_om_file('tst/arith_unminus.xml').value)
 
 #class Decoding(unittest.TestCase):
     """ Testing of Decoding/Parsing Methods"""
