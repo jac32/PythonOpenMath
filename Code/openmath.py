@@ -58,8 +58,12 @@ def evaluate_om_string(omstring, vars={}):
     :params omstring: The string representation of the XML data.
     :params vars: A dictionary containing any variables required
     """
-    root = ET.fromstring(omstring)
-    omobj = parse_om_root(root)
+    try:
+        root = ET.fromstring(omstring)
+        omobj = parse_om_root(root)
+    except (DivideByZeroError, UnexpectedSymbolError,UnsupportedCDError,InvalidArgsError as err):
+        return err.obj
+
     return omobj.value
  
 ################################################################

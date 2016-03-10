@@ -11,8 +11,7 @@ import sys
 from server import log
 
 def setup():
-    """
-    This function sets up the socket with the server
+    """This function sets up the socket with the server
     """
     host = 'localhost'
     port = 54345
@@ -25,8 +24,10 @@ def setup():
 
 
 def create_socket(host='localhost', port=54345):
-    """
-    Creates a socket with the given host name and port
+    """Creates a socket with the given host name and port
+    
+    :param host: the host of the server. Defaults to 'localhost' if no argument specified
+    :param port: the port to connect to. Defaults to '54345' if no argument specified
     """
     try:
         # create an AF_INET, STREAM socket (TCP)
@@ -56,9 +57,10 @@ def create_socket(host='localhost', port=54345):
     return s    
 
 def prompt(s):        
-    """
-    This function prompts the user for either a file or an OpenMath xml string
-    to send to the server
+    """Prompts the user for either a file or an OpenMath xml string to send to the server
+
+    :param s: the socket to be passed into the send_msg function
+    :return true or false depending on if the user wishes to quit
     """
     choice = input("Do you want to enter a file or enter manually? (f/m/q)"
                    + " \n> ")
@@ -88,8 +90,12 @@ def prompt(s):
 
 
 def send_msg(message, socket):
-    """
-    This function controls sending a message across the socket
+    """This function controls sending a message across the socket.
+    It could be either the contents of a file, or a message typed in 
+    by the user
+
+    :param message: the string to be sent to the socket.
+    :param socket: the socket representing the connection with the server
     """    
     try:
         #Set the whole string

@@ -5,6 +5,10 @@ Element = ET.Element
 subelement = ET.SubElement
 
 class Symbol(object):
+    """Generic super class for all OMS OpenMath nodes.
+    It has a generic implementation for encoding to OpenMath, as well
+    as abstract methods that serve as properties that its children implement
+    """
     __metaclass__ = ABCMeta
 
     _args = []
@@ -29,6 +33,13 @@ class Symbol(object):
         raise EvaluationNonsenicalError(self)
     
     def put(element):
+        """Encodes the given element into OpenMath XML.
+        It recursively calls om_element on each child of the OMS to produce
+        the correct nesting for XML
+        
+        :param element: the element to be encoded
+        :return the OpenMath OMA element detailing this particular symbol
+        """
         omelt = Element('OMA')
         oms   = Element('OMS')
         oms.attrib = {'cd'   : element.dictionary,

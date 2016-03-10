@@ -23,6 +23,8 @@ def handler(clientsock,addr):
     """ Client socket handler 
 
     Houses the main loop for interaction with a single client
+    :param clientsock: the socket representing the connection with the client
+    :param addr: the ip address of the client
     """
     while True:
         try:
