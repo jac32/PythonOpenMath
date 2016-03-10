@@ -79,7 +79,7 @@ class DivideByZeroError(Exception):
     """Class describing an error in the OpenMath XML that was passed in originally
     """
 
-    def __init__(self):
+    def __init__(self,cd,name):
         """Constructor for a divide by zero exception. 
         It takes the name which raised the exception and the CD of the OMS element
         """
