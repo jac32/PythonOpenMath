@@ -6,10 +6,11 @@ from the parsed XML tree.
 
 """
 import CDs
+
 from symbol import Symbol
 from collections import defaultdict
 from fractions import Fraction
-from errors import UnsupportedCDError,UnexpectedSymbolError
+from errors import UnsupportedCDError, UnexpectedSymbolError
 
 ###############################################################
 
@@ -61,8 +62,10 @@ def parse_om_root(root):
     print(omobj)
     42
     """
-    return parse_om_element(root[0])
-
+    try:
+        return parse_om_element(root[0])
+    except(UnsupportedCDError, UnexpectedSymbolError) as err:
+        return err.obj
 ################################################################
 #
 # Basic OpenMath elements
@@ -234,5 +237,6 @@ for class_ in CDs:
     for subclass in class_.__subclasses__():
         print(subclass.name())
         OMDICTS[subclass.dictionary()][subclass.name()] = subclass
+
 
 

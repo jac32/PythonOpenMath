@@ -34,10 +34,9 @@ def handler(clientsock,addr):
             result = pickle.dumps(parse_om_string(str(data, 'UTF-8')))
             clientsock.send(result)
         except:
-            clientsock.send(pickle.dumps("error"))
+            clientsock.send(pickle.dumps("ERROR: malformed input"))
+        clientsock.close()
         
-    clientsock.close()
-
 
 ############################################################
 # Initialiser - Listens for connections and passes sockets
