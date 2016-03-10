@@ -63,9 +63,11 @@ def parse_om_root(root):
     42
     """
     try:
+
         return parse_om_element(root[0])
     except(UnsupportedCDError, UnexpectedSymbolError) as err:
         return err.obj
+
 ################################################################
 #
 # Basic OpenMath elements

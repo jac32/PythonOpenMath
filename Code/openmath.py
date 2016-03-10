@@ -46,7 +46,10 @@ def parse_om_string(omstring):
     :returns: The object represented by the XML from the string.
     """
     root = ET.fromstring(omstring)
-    omobj = parse_om_root(root)
+    try:
+         omobj = parse_om_root(root)
+    except(UnsupportedCDError,UnexpectedSymbolError) as err:
+         return str(err)
     return omobj
 
 def evaluate_om_string(omstring, vars={}):
