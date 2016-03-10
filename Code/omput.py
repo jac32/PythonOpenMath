@@ -172,7 +172,14 @@ def om_integer_interval(interval):
     return omelt
 
 def om_symbol(sym):
+    """ Symbol encoding method
+    
+    Creates a new OMA element for any symbol represented by the 
+    Symbol class 
 
+    :param sym: Instance of Symbol to be represented
+    :returns: The OMA element representing that Symbol
+    """
     omelt = Element('OMA')
     oms   = Element('OMS')
     oms.attrib = {'cd'   : sym.dictionary(),

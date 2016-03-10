@@ -62,8 +62,9 @@ def evaluate_om_string(omstring, vars={}):
         root = ET.fromstring(omstring)
         omobj = parse_om_root(root)
         result = omobj.eval()
-    except (DivideByZeroError, UnexpectedSymbolError,UnsupportedCDError,InvalidArgsError) as err:
-         return str(err)
+    except (DivideByZeroError, UnexpectedSymbolError,
+            UnsupportedCDError,InvalidArgsError) as err:
+        return str(err)
 
     return result
  
