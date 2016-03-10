@@ -7,6 +7,10 @@ Element = ET.Element
 subelement = ET.SubElement
 
 class Symbol(object):
+    """Generic super class for all OMS OpenMath nodes.
+    It has a generic implementation for encoding to OpenMath, as well
+    as abstract methods that serve as properties that its children implement
+    """
     __metaclass__ = ABCMeta
 
     _args = []
