@@ -14,7 +14,7 @@ import xml.etree.ElementTree as ET
 from omparse import parse_om_root
 from omput import om_object
 from prettyprint import om_pretty_node
-
+from errors import DivideByZeroError,UnexpectedSymbolError,UnsupportedCDError,InvalidArgsError
 
 ELEMENT = ET.Element
 SUBELEMENT = ET.SubElement
@@ -61,10 +61,11 @@ def evaluate_om_string(omstring, vars={}):
     try:
         root = ET.fromstring(omstring)
         omobj = parse_om_root(root)
+        result = omobj.eval()
     except (DivideByZeroError, UnexpectedSymbolError,UnsupportedCDError,InvalidArgsError) as err:
-        return err.obj
+         return str(err)
 
-    return omobj.value
+    return result
  
 ################################################################
 

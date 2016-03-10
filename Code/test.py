@@ -9,7 +9,7 @@ import CDs
 from CDs import *
 from symbol import Symbol
 from fractions import Fraction
-from openmath import parse_om_file, om_string, om_pretty_print
+from openmath import parse_om_file, om_string, om_pretty_print,evaluate_om_string
 from CDs.arith1 import *
 
 
@@ -193,6 +193,12 @@ class Encoding(unittest.TestCase):
 
         self.assertEqual(om_string(parse_om_file('tst/dict.xml')),
                          om_string(Dictionary(KeyValuePair('key1',1),KeyValuePair('key2',2),KeyValuePair('key3',3))))
+
+    def test_encode_ome(self):
+        print('Encoding:test_encode_ome')
+        self.assertEqual('<OMOBJ><OME><OMS cd="arith_error" name="divide_by_zero" /><OMS cd="arith1" name="divide" /></OME></OMOBJ>',
+                         evaluate_om_string(open("tst/dividebyzero.xml","r").read()))
+
 
     def test_encode_matrix(self):
         print('Encoding:test_encode_matrix')

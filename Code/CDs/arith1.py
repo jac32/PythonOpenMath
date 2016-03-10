@@ -37,7 +37,11 @@ class Arith1(Symbol):
                  else expr for expr in self.args]
 
         if len(results) == 1: return self.op()(results[0])
-        return reduce(self.op(), results)
+        try:
+             result = reduce(self.op(),results)
+             return result
+        except ZeroDivisionError:
+             raise DivideByZeroError(self.dictionary(),self.name())
 
 class Arith1Times(Arith1):
     """Class describing an OpenMath times node
@@ -68,8 +72,6 @@ class Arith1Divide(Arith1):
         """Constructor for an arith1 divide instance
         :param nums: the tuple storing the left and right operands
         """
-        if nums[len(nums)-1] == 0: 
-            raise DivideByZeroError()
         super().__init__(nums)
 
     @staticmethod
@@ -202,7 +204,7 @@ class Arith1Root(Arith1):
     @staticmethod
     def iroot(k, n):
         if n == 0:
-            raise DivideByZeroError()
+            raise DivideByZeroError(Arith1Root.dictionary(),Arith1Root.name())
         return k ** (1/n)
 
 
