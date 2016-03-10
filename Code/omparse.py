@@ -61,7 +61,11 @@ def parse_om_root(root):
     print(omobj)
     42
     """
-    return parse_om_element(root[0])
+    try:
+         omobj = parse_om_element(root[0])
+    except(UnsupportedCDError,UnexpectedSymbolError) as err:
+         return str(err)
+    return omobj
 
 ################################################################
 #
