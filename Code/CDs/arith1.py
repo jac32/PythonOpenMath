@@ -9,7 +9,6 @@ from errors import DivideByZeroError, InvalidArgsError
 Element = ET.Element
 SUBELEMENT = ET.SubElement
 
-
 class Arith1(Symbol):
     def __init__(self, nums):
         self.args = nums
@@ -24,7 +23,6 @@ class Arith1(Symbol):
 
         if len(results) == 1: return self.op()(results[0])
         return reduce(self.op(), results)
-
 
 class Arith1Times(Arith1):
     """
@@ -121,7 +119,6 @@ class Arith1Minus(Arith1):
     def dictionary():
         return 'arith1'
 
-
 class Arith1Power(Arith1):
     """
     Class describing an OpenMath power node
@@ -155,6 +152,7 @@ class Arith1Abs(Arith1):
         Constructor for an arith1 abs instance
         :param num: stores an operand
         """
+
         if len(num) != 1:
             raise InvalidArgsError(self)
         super().__init__(num)
@@ -199,7 +197,7 @@ class Arith1Root(Arith1):
         return Arith1Root.iroot
 
     @staticmethod
-    def iroot(k, n):
+    def iroot(self,k, n):
         if n == 0:
             raise DivideByZeroError()
         return k ** (1/n)
@@ -228,7 +226,7 @@ class Arith1Gcd(Arith1):
     def dictionary():
         return 'arith1'
 
-    
+
 class Arith1Lcm(Arith1):
     """
     Class describing an OpenMath lcm node
@@ -259,6 +257,12 @@ class Arith1Lcm(Arith1):
     def op():
         return Arith1Lcm.lcm
 
+    def lcm(self,a,b):
+        """
+        Function for evaluating lcm expression
+        """
+        return abs(a*b) / gcd(a,b) if a and b else 0
+    
 
 class Arith1UnMinus(Arith1):
     """
@@ -269,6 +273,7 @@ class Arith1UnMinus(Arith1):
         Constructor for an arith1 unary minus instance
         :param num: stores an operand
         """
+
         if len(num) != 1:
             raise InvalidArgsError(self)
         super().__init__(num)
@@ -285,3 +290,23 @@ class Arith1UnMinus(Arith1):
     def op():
         return operator.neg
 
+
+class DivideByZeroError(Exception):
+    """
+    Class describing an error in the OpenMath XML that was passed in originally
+    """
+    def __str__(self):
+        """
+        prints out the error message
+        """            
+        return "Cannot divide by Zero"
+ 
+class InvalidArgsLengthError(Exception):
+    """
+    Class describing an error in the OpenMath XML that was passed in originally
+    """
+    def __str__(self):
+        """
+        prints out the error message
+        """            
+        return "Too many or too little args"

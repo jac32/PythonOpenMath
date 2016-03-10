@@ -16,7 +16,7 @@ from fractions import Fraction
 import xml.etree.ElementTree as ET
 
 Element = ET.Element
-SUBELEMENT = ET.SubElement
+subelement = ET.SubElement
 
 ################################################################
 #

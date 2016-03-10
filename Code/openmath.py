@@ -50,6 +50,19 @@ def parse_om_string(omstring):
     omobj = parse_om_root(root)
     return omobj
 
+def evaluate_om_string(omstring, vars={}):
+    """ Evaluates OpenMath XML Strings
+
+    Parses the string contents and calls the evaluator on the 
+    root of the tree produced.
+
+    :params omstring: The string representation of the XML data.
+    :params vars: A dictionary containing any variables required
+    """
+    root = ET.fromstring(omstring)
+    omobj = parse_om_root(root)
+    return omobj.value
+ 
 ################################################################
 
 def om_string(object_):

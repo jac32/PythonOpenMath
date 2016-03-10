@@ -10,8 +10,13 @@ from CDs import *
 from symbol import Symbol
 from fractions import Fraction
 from openmath import parse_om_file, om_string
+from CDs.arith1 import *
 
 
+################################################################
+#
+#Class for decoding OpenMath XML into 
+#
 class Decoding(unittest.TestCase):
     """ Testing of Decoding/Parsing Methods"""
 
@@ -131,13 +136,52 @@ class Decoding(unittest.TestCase):
         test_plus = -8
         self.assertEqual(test_plus, parse_om_file('tst/arith_unminus.xml').eval()) 
 
+#################################################################################
+#
+# class for encoding objects into OpenMath XML
+#
 class Encoding(unittest.TestCase):
     """ Testing of Decoding/Parsing Methods"""
 
     def test_encode_int_42(self):
-        print('Encoding:test_decode_int_42')
+        print('Encoding:test_encode_int_42')
         test_result = b'<OMOBJ><OMI>42</OMI></OMOBJ>'
         self.assertEqual(test_result, om_string(42))
 
+    def test_encode_plus(self):
+        print('Encoding:test_encode_plus')
+        test_result = b'<OMOBJ><OMA><OMS cd=\'arith1\' name=\'plus\'/><OMI>2</OMI><OMI>42</OMI></OMA></OMOBJ>'
+        self.assertEqual(test_result, om_string(Arith1Plus(2,42)))
+
+    def test_encode_minus(self):
+        print('Encoding:test_encode_minus')
+        test_result = b'<OMOBJ><OMA><OMS cd=\'arith1\' name=\'minus\'/><OMI>2</OMI><OMI>42</OMI></OMA></OMOBJ>'
+        self.assertEqual(test_result, om_string(Arith1Minus(2,42)))
+
+    def test_encode_times(self):
+        print('Encoding:test_encode_times')
+        test_result = b'<OMOBJ><OMA><OMS cd=\'arith1\' name=\'times\'/><OMI>2</OMI><OMI>42</OMI></OMA></OMOBJ>'
+        self.assertEqual(test_result, om_string(Arith1Times(2,42)))
+
+    def test_encode_divide(self):
+        print('Encoding:test_encode_divide')
+        test_result = b'<OMOBJ><OMA><OMS cd=\'arith1\' name=\'divide\'/><OMI>2</OMI><OMI>42</OMI></OMA></OMOBJ>'
+        self.assertEqual(test_result, om_string(Arith1Divide(2,42)))
+
+    def test_encode_nested_plus(self):
+        print('Encoding:test_encode_nested_plus')
+        test_result = b'<OMOBJ><OMA><OMS cd=\'arith1\' name=\'plus\'/><OMA><OMS cd=\'arith1\' name=\'times\'/><OMI>2</OMI><OMI>3</OMI></OMA><OMI>42</OMI></OMA></OMOBJ>'
+        self.assertEqual(test_result, om_string(Arith1Plus(Arith1Times(2,3),42)))
+
+    def test_encode_factorial(self):
+        print('Encoding:test_encode_plus')
+        test_result = b'<OMOBJ><OMA><OMS cd=\'integer1\' name=\'factorial\'/><OMI>5</OMI>></OMA></OMOBJ>'
+        self.assertEqual(test_result, om_string(Factorial(5)))
+
+    def test_encode_matrix(self):
+        print('Encoding:test_encode_matrix')
+        test_result = b'<OMOBJ><OMA><OMS cd=\'linalg2\' name=\'matrix\'/><OMA><OMS cd=\'linalg2\' name=\'matrixrow\'/><OMI>2</OMI><OMI>42</OMI></OMA><<OMA><OMS cd=\'linalg2\' name=\'matrixrow\'/><OMI>3</OMI><OMI>4</OMI></OMA></OMA>/OMOBJ>'
+        self.assertEqual(test_result, om_string(Matrix(MatrixRow(2,42),MatrixRow(3,4))))
+
 if __name__ == '__main__':
-    unittest.main()
+     unittest.main()

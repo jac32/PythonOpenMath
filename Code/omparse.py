@@ -8,21 +8,21 @@ from the parsed XML tree.
 from CDs import *
 from symbol import Symbol
 from applications import *
-from errors import UnsupportedCDError, UnexpectedSymbolError
 from collections import defaultdict
+from variables import Variable
+from errors import UnsupportedCDError, UnexpectedSymbolError
 
 ################################################################
 #
 # OpenMath content dictionaries
 #
 CDs = Symbol.__subclasses__()
+
 OMDICTS = defaultdict(dict)
 
 for class_ in CDs:
-    print(class_.name())
     OMDICTS[class_.dictionary()][class_.name()] = class_
     for subclass in class_.__subclasses__():
-        print(subclass.name())
         OMDICTS[subclass.dictionary()][subclass.name()] = subclass
 
 # logic1 http://www.openmath.org/cd/logic1.xhtml
@@ -77,7 +77,7 @@ def omdict_lookup(cd, name):
         dict_ = OMDICTS[cd]
     except:
         raise UnsupportedCDError(cd, name)
-    
+
     try:
         symbol= dict_[name]
     except:
@@ -102,7 +102,7 @@ def parse_oma(node):
         elts.append(parse_om_element(child))
     return elts[0](*elts[1:len(elts)])
 
-PARSE_OM_ELEMENT_HANDLER = {'OMI' : parse_omi, 'OMS' : parse_oms, 'OMA' : parse_oma, 'OMF': parse_omf, 'OMSTR': parse_omstr}
+PARSE_OM_ELEMENT_HANDLER = {'OMI' : parse_omi, 'OMS' : parse_oms, 'OMA' : parse_oma, 'OMF': parse_omf, 'OMSTR': parse_omstr, 'OMV': Variable}
 
 def parse_om_element(obj):
     """ Appropriately parses a OpenMath XML element

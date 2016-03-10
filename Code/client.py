@@ -64,11 +64,14 @@ def prompt(s):
                    + " \n> ")
     
     if(choice == 'f'):
-        str_ = input("Enter in a file")
-        with open(str_,"r") as file:
-            msg = file.read()
-            send_msg(msg,s)
-            file.close()
+        str_ = input("Enter in a file \n>")
+        try:
+            with open(str_,"r") as file:
+                msg = file.read()
+                send_msg(msg,s)
+
+        except FileNotFoundError as err:
+            log('File not Found')
 
     elif(choice == 'm'):
         msg = input("Enter in an OpenMath expression "
