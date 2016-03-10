@@ -20,7 +20,6 @@ ELEMENT = ET.Element
 SUBELEMENT = ET.SubElement
 
 
-
 ################################################################
 
 def parse_om_file(fname):
@@ -96,7 +95,7 @@ def om_pretty_print(object_, indent='\t'):
 
     :params x: The object to be encoded to the string
     """
-    om_pretty_node(om_object(object_), indent=indent)
+    print(om_pretty_node(om_object(object_), indent=indent))
 ################################################################
 
 
