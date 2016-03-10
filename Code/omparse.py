@@ -9,7 +9,7 @@ import CDs
 from symbol import Symbol
 from collections import defaultdict
 from fractions import Fraction
-
+from errors import UnsupportedCDError,UnexpectedSymbolError
 
 ###############################################################
 

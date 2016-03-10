@@ -16,7 +16,7 @@ class UnsupportedCDError(Exception):
         self.obj = self.build()
 
     def __str__(self):
-        return ET.tostring(self.obj)
+        return str(ET.tostring(self.obj),'UTF-8')
 
     def build(self):
         """The following method constructs an OpenMath OME element representing the unrecognised CD. 
@@ -51,7 +51,7 @@ class UnexpectedSymbolError(Exception):
         self.obj = self.build()
 
     def __str__(self):
-        return ET.tostring(self.obj)
+        return str(ET.tostring(self.obj),'UTF-8')
 
     def build(self):
         """Constructs an OpenMath OME element representing
@@ -91,7 +91,7 @@ class DivideByZeroError(Exception):
     def __str__(self):
         """Prints out the error message
         """
-        return "Cannot divide by Zero"
+        return str(ET.tostring(self.obj),'UTF-8')
 
     def build(self):
         """Constructs an OpenMath OME element representing the unexpected symbol. 

@@ -136,6 +136,7 @@ class Decoding(unittest.TestCase):
         test_plus = -8
         self.assertEqual(test_plus, parse_om_file('tst/unminus.xml').eval()) 
 
+
 #################################################################################
 #
 # class for encoding objects into OpenMath XML
@@ -184,7 +185,14 @@ class Encoding(unittest.TestCase):
         self.assertEqual(om_string(parse_om_file('tst/factorial.xml')),
                          om_string(Factorial(10)))
 
+    def test_encode_dictionary(self):
+        print('Encoding:test_encode_dict')
 
+        Dictionary = CDs.dictionary.Dictionary
+        KeyValuePair = CDs.dictionary.KeyValuePair        
+
+        self.assertEqual(om_string(parse_om_file('tst/dict.xml')),
+                         om_string(Dictionary(KeyValuePair('key1',1),KeyValuePair('key2',2),KeyValuePair('key3',3))))
 
     def test_encode_matrix(self):
         print('Encoding:test_encode_matrix')

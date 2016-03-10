@@ -14,7 +14,7 @@ class Dictionary(Symbol):
         x = map(lambda x: isinstance(x, KeyValuePair), pairs)
         if not reduce(__and__, x):
             raise InvalidArgsError
-        super().__init__(pairs)
+        self.args = pairs
         
     @staticmethod
     def name():
@@ -22,7 +22,7 @@ class Dictionary(Symbol):
 
     @staticmethod
     def dictionary():
-        return 'dict'
+        return 'dict1'
 
 class KeyValuePair(Symbol):
     """Class describing a key value pair as a member of a dictionary
@@ -34,7 +34,7 @@ class KeyValuePair(Symbol):
         """
         if len(pair) != 2:
             raise InvalidArgsError(self)
-        super().__init__(pair)
+        self.arg=pair
 
     @staticmethod
     def name():
