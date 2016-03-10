@@ -1,5 +1,7 @@
 import abc
 from abc import *
+
+
 import xml.etree.ElementTree as ET
 Element = ET.Element
 subelement = ET.SubElement
@@ -25,16 +27,7 @@ class Symbol(object):
     def dictionary():
         return 
 
+    @staticmethod
     def eval(variables={}):
         raise EvaluationNonsenicalError(self)
-    
-    def put(element):
-        omelt = Element('OMA')
-        oms   = Element('OMS')
-        oms.attrib = {'cd'   : element.dictionary,
-                      'name' : element.name}
-        omelt.insert(1, oms)
-        for i in range(0, len(element.args)):
-            omelt.insert(i, om_element(element.args[i]))
-        return omelt
-    
+

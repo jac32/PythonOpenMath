@@ -197,7 +197,7 @@ class Arith1Root(Arith1):
         return Arith1Root.iroot
 
     @staticmethod
-    def iroot(self,k, n):
+    def iroot(k, n):
         if n == 0:
             raise DivideByZeroError()
         return k ** (1/n)
@@ -257,7 +257,8 @@ class Arith1Lcm(Arith1):
     def op():
         return Arith1Lcm.lcm
 
-    def lcm(self,a,b):
+    @staticmethod
+    def lcm(a,b):
         """
         Function for evaluating lcm expression
         """

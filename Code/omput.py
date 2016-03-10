@@ -5,8 +5,6 @@ This module provides  a number of functions for encoding "objects"
 into OpenMath XML format.
 
 """
-import CDs
-from CDs import * 
 from symbol import Symbol
 from fractions import Fraction
 
@@ -47,7 +45,7 @@ def om_str(str_):
     Creates a new OMSTR element and puts the string representation of
     the str within the node.
 
-    :param str_: The integer to be represented by the OMSTR element
+    :param str_: The string  to be represented by the OMSTR element
     :returns: The OMSTR element representing the given integer
     """
     omelt = Element("OMSTR")
@@ -173,6 +171,17 @@ def om_integer_interval(interval):
     omelt.insert(3, om_element(interval[-1]+1))
     return omelt
 
+def om_symbol(sym):
+
+    omelt = Element('OMA')
+    oms   = Element('OMS')
+    oms.attrib = {'cd'   : sym.dictionary(),
+                  'name' : sym.name()}
+    omelt.insert(1, oms)
+    for i in range(2, len(sym.args)+2):
+        omelt.insert(i, om_element(sym.args[i-2]))
+    return omelt
+
 
 ################################################################
 #
@@ -201,10 +210,8 @@ def om_element(element):
         return om_complex_cartesian(element)
     elif isinstance(element, range):
         return om_integer_interval(element)
-
-    for class_ in Symbol.__subclasses__():
-        if isinstance(element, class_):
-            return Symbol.put(element)
+    elif isinstance(element, Symbol):
+        return om_symbol(element)
 
 ################################################################
 #
