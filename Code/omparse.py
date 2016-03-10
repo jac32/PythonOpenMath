@@ -8,20 +8,22 @@ from the parsed XML tree.
 from CDs import *
 from symbol import Symbol
 from applications import *
-
+from errors import UnsupportedCDError, UnexpectedSymbolError
+from collections import defaultdict
 
 ################################################################
 #
 # OpenMath content dictionaries
 #
 CDs = Symbol.__subclasses__()
-OMDICTS = {}
+OMDICTS = defaultdict(dict)
 
 for class_ in CDs:
-    OMDICTS[class_.dictionary()] = {}
-
-for class_ in CDs:
+    print(class_.name())
     OMDICTS[class_.dictionary()][class_.name()] = class_
+    for subclass in class_.__subclasses__():
+        print(subclass.name())
+        OMDICTS[subclass.dictionary()][subclass.name()] = subclass
 
 # logic1 http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
@@ -74,12 +76,12 @@ def omdict_lookup(cd, name):
     try:
         dict_ = OMDICTS[cd]
     except:
-        raise UnsupportedCDError(cd)
+        raise UnsupportedCDError(cd, name)
     
     try:
         symbol= dict_[name]
     except:
-        raise UnexpectedSymbolError(name)
+        raise UnexpectedSymbolError(cd, name)
 
     return symbol
 

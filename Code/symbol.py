@@ -1,22 +1,40 @@
 import abc
+from abc import *
+import xml.etree.ElementTree as ET
+Element = ET.Element
+subelement = ET.SubElement
 
 class Symbol(object):
-    __metaclass__ = abc.ABCMeta
+    __metaclass__ = ABCMeta
+
+    _args = []
     
-    def __init__(self):
-        return
+    @property
+    def args(self):
+        return self._args
+
+    @args.setter
+    def args(self, newargs):
+        self._args = newargs
     
-    @abc.abstractmethod
+    @abstractmethod
     def name():
-        """ Should return the name of the symbol
-        """
+        return 
 
-    @abc.abstractmethod
+    @abstractmethod
     def dictionary():
-        """ Should return the name of the symbol's CD
-        """
+        return 
 
-    @abc.abstractmethod
+    def eval(variables={}):
+        raise EvaluationNonsenicalError(self)
+    
     def put(element):
-        """ Should create an element tree XML node representing the OMA
-        """
+        omelt = Element('OMA')
+        oms   = Element('OMS')
+        oms.attrib = {'cd'   : element.dictionary,
+                      'name' : element.name}
+        omelt.insert(1, oms)
+        for i in range(0, len(element.args)):
+            omelt.insert(i, om_element(element.args[i]))
+        return omelt
+    

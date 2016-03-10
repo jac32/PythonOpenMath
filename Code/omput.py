@@ -204,7 +204,7 @@ def om_element(element):
 
     for class_ in Symbol.__subclasses__():
         if isinstance(element, class_):
-            return class_.put(element)
+            return Symbol.put(element)
 
 ################################################################
 #
