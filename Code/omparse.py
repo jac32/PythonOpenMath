@@ -9,6 +9,7 @@ from CDs import *
 from symbol import Symbol
 from applications import *
 from variables import Variable
+from errors import *
 
 ################################################################
 #
@@ -19,9 +20,13 @@ OMDICTS = {}
 
 for class_ in CDs:
     OMDICTS[class_.dictionary()] = {}
+    for subclass in class_.__subclasses__():
+        OMDICTS[subclass.dictionary()] = {}
 
 for class_ in CDs:
     OMDICTS[class_.dictionary()][class_.name()] = class_
+    for subclass in class_.__subclasses__():
+        OMDICTS[subclass.dictionary()][subclass.name()]=subclass
 
 # logic1 http://www.openmath.org/cd/logic1.xhtml
 OMDICTS['logic1'] = {}
@@ -74,12 +79,12 @@ def omdict_lookup(cd, name):
     try:
         dict_ = OMDICTS[cd]
     except:
-        raise UnsupportedCDError(cd)
+        raise UnsupportedCDError(cd,name)
     
     try:
         symbol= dict_[name]
     except:
-        raise UnexpectedSymbolError(name)
+        raise UnexpectedSymbolError(cd,name)
 
     return symbol
 

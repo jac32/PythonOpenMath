@@ -3,11 +3,26 @@ import abc
 from symbol import Symbol
 from fractions import gcd
 import xml.etree.ElementTree as ET
+import operator 
+from functools import *
 
 Element = ET.Element
 SUBELEMENT = ET.SubElement
 
-class Arith1Times(Symbol):
+class Arith1(Symbol):
+    def __init__(self,*nums):
+        
+        self.args = nums 
+
+    def eval(self, op, arguments):
+        """
+        Function for evaluating times expression
+        """
+        args = [element if isinstance(element,(int,float,complex)) else element.value for element in arguments] 
+        return reduce(op, args)    
+     
+
+class Arith1Times(Arith1):
     """
     Class describing an OpenMath times node
     """
@@ -16,10 +31,9 @@ class Arith1Times(Symbol):
         Constructor for an arith1 times instance
         :param nums: the tuple storing the left and right operands
         """
-        self.a = nums[0]
-        self.b = nums[1]
-        self.value = self.eval()
-             
+        super().__init__(nums)
+        self.value = super().eval(operator.__mul__,nums)           
+ 
     def __str__(self):
         """
         Function for printing out a times node
@@ -38,22 +52,8 @@ class Arith1Times(Symbol):
     def put(element):
         return arith1_put(element, Arith1Times)
 
-
-    def eval(self):
-        """
-        Function for evaluating times expression
-        """
-        if isinstance(self.a, (int, float, complex)):
-            a= self.a
-            if isinstance(self.b, (int,float, complex)):
-                b= self.b
-            else:
-                b= self.b.value
-        else:
-            a= self.a.value 
-        return a * b
-
-class Arith1Divide(Symbol):
+   
+class Arith1Divide(Arith1):
     """
     Class describing an OpenMath divide node
     """
@@ -62,10 +62,9 @@ class Arith1Divide(Symbol):
         Constructor for an arith1 divide instance
         :param nums: the tuple storing the left and right operands
         """
-        self.a = nums[0]
-        self.b = nums[1]
-        self.value= self.eval()
-             
+        super().__init__(nums)
+        self.value = super().eval(operator.__truediv__,nums)           
+         
     def __str__(self):
         """
         Function for printing out a divide node
@@ -85,23 +84,7 @@ class Arith1Divide(Symbol):
     def put(element):
         return arith1_put(element, Arith1Divide)
 
-    def eval(self):
-        """
-        Function for evaluating divide expression
-        """
-        if isinstance(self.a, (int, float, complex)):
-            a= self.a
-            if isinstance(self.b, (int,float, complex)):
-                b= self.b
-            else:
-                b= self.b.value
-        else:
-            a= self.a.value 
-        if b == 0:
-            raise DivideByZeroError()
-        return a / b
-    
-class Arith1Plus(Symbol):
+class Arith1Plus(Arith1):
     """
     Class describing an OpenMath plus node
     """
@@ -110,10 +93,9 @@ class Arith1Plus(Symbol):
         Constructor for an arith1 plus instance
         :param nums: the tuple storing the left and right operands
         """
-        self.a = nums[0]
-        self.b = nums[1]
-        self.value = self.eval()
-             
+        super().__init__(nums)
+        self.value = super().eval(operator.__add__,nums)           
+    
     def __str__(self):
         """
         Function for printing out a plus node
@@ -132,36 +114,21 @@ class Arith1Plus(Symbol):
     def put(element):
         return arith1_put(element, Arith1Plus)
 
-    def eval(self):
-        """
-        Function for evaluating plus expression
-        """
-        if isinstance(self.a, (int, float, complex)):
-            a= self.a
-            if isinstance(self.b, (int,float, complex)):
-                b= self.b
-            else:
-                b= self.b.value
-        else:
-            a= self.a.value 
-        return a + b
-
-class Arith1Minus(Symbol):
+class Arith1Minus(Arith1):
     """
     Class describing an OpenMath minus node
     """
     def __init__(self,*nums):
         """
-        Constructor for an arith1 minus instance
+        Constructor for an arith1 plus instance
         :param nums: the tuple storing the left and right operands
         """
-        self.a = nums[0]
-        self.b = nums[1]
-        self.value= self.eval()
-
+        super().__init__(nums)
+        self.value = super().eval(operator.__sub__,nums)           
+    
     def __str__(self):
         """
-        Function for printing out a minus node
+        Function for printing out a plus node
         """
         print(self.a + " - " + self.b)
 
@@ -177,22 +144,7 @@ class Arith1Minus(Symbol):
     def put(element):
         return arith1_put(element, Arith1Minus)
 
-
-    def eval(self):
-        """
-        Function for evaluating minus expression
-        """
-        if isinstance(self.a, (int, float, complex)):
-            a= self.a
-            if isinstance(self.b, (int,float, complex)):
-                b= self.b
-            else:
-                b= self.b.value
-        else:
-            a= self.a.value 
-        return a - b
-
-class Arith1Power(Symbol):
+class Arith1Power(Arith1):
     """
     Class describing an OpenMath power node
     """
@@ -201,16 +153,9 @@ class Arith1Power(Symbol):
         Constructor for an arith1 power instance
         :param nums: the tuple storing the left and right operands
         """
-        self.a = nums[0]
-        self.b = nums[1]
-        self.value = self.eval()
-
-    def __str__(self):
-        """
-        Function for printing out a power node
-        """
-        print(self.a + " ^ " + self.b)
-
+        super().__init__(nums)
+        self.value = super().eval(operator.__pow__,nums)           
+  
     @staticmethod
     def name():
         return 'power'
@@ -222,22 +167,8 @@ class Arith1Power(Symbol):
     @staticmethod
     def put(element):
         return arith1_put(element, Arith1Power)
-    
-    def eval(self):
-        """
-        Function for evaluating power expression
-        """
-        if isinstance(self.a, (int, float, complex)):
-            a= self.a
-            if isinstance(self.b, (int,float, complex)):
-                b= self.b
-            else:
-                b= self.b.value
-        else:
-            a= self.a.value 
-        return a ** b
-
-class Arith1Abs(Symbol):
+   
+class Arith1Abs(Arith1):
     """
     Class describing an OpenMath abs node
     """
@@ -247,13 +178,7 @@ class Arith1Abs(Symbol):
         :param num: stores an operand
         """
         self.a = num[0]
-        self.value= self.eval()
-             
-    def __str__(self):
-        """
-        Function for printing out a abs node
-        """
-        print("|" + self.a + "|")
+        self.value = self.eval()
 
     @staticmethod
     def name():
@@ -282,7 +207,7 @@ class Arith1Abs(Symbol):
         else: 
             return abs(self.a.value)
 
-class Arith1Root(Symbol):
+class Arith1Root(Arith1):
     """
     Class describing an OpenMath root node
     """
@@ -291,17 +216,10 @@ class Arith1Root(Symbol):
         Constructor for an arith1 root instance
         :param num: the tuple storing the left and right operands
         """
-        self.a = nums[0]
-        self.b = nums[1]
+        if len(nums) != 2: raise InvalidArgsError(len(nums))
+        self.args = nums
         self.value = self.eval()
-             
-    def __str__(self):
-        """
-        Function for printing out a abs node
-        """
-        print("root (" + self.a + ", " + self.b + ")")
-        
-    
+   
     @staticmethod
     def name():
         return 'root'
@@ -318,16 +236,9 @@ class Arith1Root(Symbol):
         """
         Function for evaluating root expression
         """
-        if isinstance(self.a, (int, float, complex)):
-            a= self.a
-            if isinstance(self.b, (int,float, complex)):
-                b= self.b
-            else:
-                b= self.b.value
-        else:
-            a= self.a.value 
-        return self.iroot(a,b)
-
+        args = [element if isinstance(element,(int,float,complex)) else element.value for element in self.args] 
+        return reduce(self.iroot, args)    
+     
     def iroot(self,k, n):
         """
         Function taken from http://stackoverflow.com/questions/15978781/how-to-find-integer-nth-roots
@@ -337,7 +248,7 @@ class Arith1Root(Symbol):
             raise DivideByZeroError()
         return k ** (1/n)
 
-class Arith1Gcd(Symbol):
+class Arith1Gcd(Arith1):
     """
     Class describing an OpenMath gcd node
     """
@@ -346,16 +257,9 @@ class Arith1Gcd(Symbol):
         Constructor for an arith1 gcd instance
         :param nums: the tuple storing the left and right operands
         """
-        self.a = nums[0]
-        self.b = nums[1]
-        self.value = self.eval()
+        super().__init__(nums)
+        self.value = super().eval(gcd,nums)           
              
-    def __str__(self):
-        """
-        Function for printing out a gcd node
-        """
-        print("gcd(" + self.a + ", " + self.b + ") = " + self.value)
-        
     @staticmethod
     def name():
         return 'gcd'
@@ -367,22 +271,8 @@ class Arith1Gcd(Symbol):
     @staticmethod
     def put(element):
         return arith1_put(element, Arith1Gcd)
-       
-    def eval(self):
-        """
-        Function for evaluating gcd expression
-        """
-        if isinstance(self.a, (int, float, complex)):
-            a= self.a
-            if isinstance(self.b, (int,float, complex)):
-                b= self.b
-            else:
-                b= self.b.value
-        else:
-            a= self.a.value 
-        return gcd(a, b)
 
-class Arith1Lcm(Symbol):
+class Arith1Lcm(Arith1):
     """
     Class describing an OpenMath lcm node
     """
@@ -391,16 +281,9 @@ class Arith1Lcm(Symbol):
         Constructor for an arith1 lcm instance
         :param nums: the tuple storing the left and right operands
         """
-        self.a = nums[0]
-        self.b = nums[1]
-        self.value = self.eval()
-             
-    def __str__(self):
-        """
-        Function for printing out a lcm node
-        """
-        print("lcm(" + self.a + ", " + self.b + ") = " + self.value)
-          
+        super().__init__(nums)
+        self.value = super().eval(self.lcm,nums)           
+    
     @staticmethod
     def name():
         return 'lcm'
@@ -413,21 +296,13 @@ class Arith1Lcm(Symbol):
     def put(element):
         return arith1_put(element, Arith1Lcm)
     
-    def eval(self):
+    def lcm(self,a,b):
         """
         Function for evaluating lcm expression
         """
-        if isinstance(self.a, (int, float, complex)):
-            a= self.a
-            if isinstance(self.b, (int,float, complex)):
-                b= self.b
-            else:
-                b= self.b.value
-        else:
-            a= self.a.value 
         return abs(a*b) / gcd(a,b) if a and b else 0
     
-class Arith1UnMinus(Symbol):
+class Arith1UnMinus(Arith1):
     """
     Class describing an OpenMath unary minus node
     """
@@ -436,15 +311,9 @@ class Arith1UnMinus(Symbol):
         Constructor for an arith1 unary minus instance
         :param num: stores an operand
         """
-        self.a = num[0]
-        self.value= self.eval()
-             
-    def __str__(self):
-        """
-        Function for printing out a unary minus node
-        """
-        print(self.a + " = " + self.value)
-    
+        self.a = num[0]    
+        self.value = self.eval()
+
     @staticmethod
     def name():
         return 'unary_minus'
@@ -481,9 +350,17 @@ class DivideByZeroError(Exception):
         prints out the error message
         """            
         return "Cannot divide by Zero"
-
-
-    
+ 
+class InvalidArgsLengthError(Exception):
+    """
+    Class describing an error in the OpenMath XML that was passed in originally
+    """
+    def __str__(self):
+        """
+        prints out the error message
+        """            
+        return "Too many or too little args"
+  
 def arith1_put(element, class_):
     omelt = Element("OMA")
     oms = Element("OMS")
