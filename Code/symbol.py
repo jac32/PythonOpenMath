@@ -1,15 +1,19 @@
+""" Module containing a generic representation of OMS OpenMath Nodes
+
+All Content Dictionaries in CDs should extend this class.
+"""
+
 import abc
 from abc import *
-
 
 import xml.etree.ElementTree as ET
 Element = ET.Element
 subelement = ET.SubElement
 
 class Symbol(object):
-    """Generic super class for all OMS OpenMath nodes.
-    It has a generic implementation for encoding to OpenMath, as well
-    as abstract methods that serve as properties that its children implement
+    """ Abstract Class for representing an OMS node
+
+    Provides template for adding additional Content Dictionaries
     """
     __metaclass__ = ABCMeta
 
