@@ -118,7 +118,6 @@ def om_list(list_):
     for item in list_:
         index = index + 1
         omelt.insert(index, om_element(item))
-        omelt
     return omelt
 
 def om_bool(bool_):
